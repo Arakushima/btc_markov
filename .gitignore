@@ -1,0 +1,10 @@
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+data/
+*.zip
+.venv/
+.pytest_cache/
+.cache/
+reference/bootstrap_before_20261001_update/
+reference/before_20261002_data_audit/

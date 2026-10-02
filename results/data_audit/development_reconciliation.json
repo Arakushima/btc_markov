@@ -1,0 +1,480 @@
+{
+  "schema_version": 1,
+  "scope": "development_only_2020_2023",
+  "expected_range": {
+    "start": "2020-01-01",
+    "end": "2023-12-31"
+  },
+  "input_selection": "Exact SYMBOL_1d_2020-01_2023-12.csv filenames; no discovery or latest-file selection",
+  "fixed_tolerances": {
+    "open": {
+      "absolute": "0.00000001",
+      "relative": "0"
+    },
+    "high": {
+      "absolute": "0.00000001",
+      "relative": "0"
+    },
+    "low": {
+      "absolute": "0.00000001",
+      "relative": "0"
+    },
+    "close": {
+      "absolute": "0.00000001",
+      "relative": "0"
+    },
+    "volume": {
+      "absolute": "0.00000001",
+      "relative": "0"
+    },
+    "quote_volume": {
+      "absolute": "0.0001",
+      "relative": "0"
+    },
+    "taker_buy_quote": {
+      "absolute": "0.0001",
+      "relative": "0"
+    }
+  },
+  "tolerance_policy": "Absolute tolerance only, fixed before input; exact mismatches are never silently accepted",
+  "numeric_policy": "Decimal comparison and exact subtraction; no binary floats",
+  "history_policy": "Compare unambiguous common dates; report unique histories separately; no listing-date judgment",
+  "inputs": {
+    "BTCUSDT": {
+      "path": "/Users/zhangzhenyi/Documents/Quant/btc_markov/data/development/BTCUSDT_1d_2020-01_2023-12.csv",
+      "sha256": "64ae4f3a75f61e216c36a7cb41eacaeb645ce3c27b6fd1e4ad3da9c87ef957f5",
+      "bytes": 215751,
+      "rows": 1461,
+      "excluded_other_assets": 0
+    },
+    "ETHUSDT": {
+      "path": "/Users/zhangzhenyi/Documents/Quant/btc_markov/data/development/ETHUSDT_1d_2020-01_2023-12.csv",
+      "sha256": "b515b0bc0470129317caa7e0a1e79f6edd4140662921e0f2a10edbdec5488b44",
+      "bytes": 210173,
+      "rows": 1461,
+      "excluded_other_assets": 0
+    },
+    "SOLUSDT": {
+      "path": "/Users/zhangzhenyi/Documents/Quant/btc_markov/data/development/SOLUSDT_1d_2020-01_2023-12.csv",
+      "sha256": "2eed2fd031bac2a970dc5fdadbdbe774c6835bd2eac8fed15f69107a7747f792",
+      "bytes": 168734,
+      "rows": 1238,
+      "excluded_other_assets": 0
+    },
+    "mentor": {
+      "path": "/Users/zhangzhenyi/Documents/ChatGPT/bitcoin/CTA_public/AFP_binance_spots.csv",
+      "sha256": "49db1e268d1526aa8ae54711fe60e7867b0fddcbf1aaccd30cbc300b2cc94152",
+      "bytes": 744849,
+      "rows": 4160,
+      "excluded_other_assets": 0
+    }
+  },
+  "assets": {
+    "BTCUSDT": {
+      "coverage": {
+        "development": {
+          "rows": 1461,
+          "unique_dates": 1461,
+          "first_date": "2020-01-01",
+          "last_date": "2023-12-31",
+          "duplicates": [],
+          "gaps_within_observed_span": [],
+          "leading_absent_calendar_days": 0,
+          "trailing_absent_calendar_days": 0,
+          "boundary_interpretation": "Coverage only; no exchange listing date inferred"
+        },
+        "mentor": {
+          "rows": 1461,
+          "unique_dates": 1461,
+          "first_date": "2020-01-01",
+          "last_date": "2023-12-31",
+          "duplicates": [],
+          "gaps_within_observed_span": [],
+          "leading_absent_calendar_days": 0,
+          "trailing_absent_calendar_days": 0,
+          "boundary_interpretation": "Coverage only; no exchange listing date inferred"
+        }
+      },
+      "common_dates": 1461,
+      "compared_unique_dates": 1461,
+      "common_dates_excluded_due_to_duplicates": [],
+      "missing_from_development": [],
+      "missing_from_mentor": [],
+      "fields": {
+        "open": {
+          "mentor_field": "open",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "high": {
+          "mentor_field": "high",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "low": {
+          "mentor_field": "low",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "close": {
+          "mentor_field": "close",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "volume": {
+          "mentor_field": "volume",
+          "compared_dates": 1461,
+          "exact_matches": 1393,
+          "exact_mismatches": 68,
+          "within_fixed_tolerance_including_exact": 1415,
+          "outside_fixed_tolerance": 46,
+          "maximum_absolute_difference": "3200.89373200",
+          "largest_difference": {
+            "date": "2021-01-21",
+            "development_value": "131803.18292600",
+            "mentor_value": "135004.076658",
+            "absolute_difference": "3200.89373200"
+          },
+          "sum_absolute_difference": "10099.967550000170"
+        },
+        "quote_volume": {
+          "mentor_field": "dollar_volume",
+          "compared_dates": 1461,
+          "exact_matches": 348,
+          "exact_mismatches": 1113,
+          "within_fixed_tolerance_including_exact": 1415,
+          "outside_fixed_tolerance": 46,
+          "maximum_absolute_difference": "105563012.56879608",
+          "largest_difference": {
+            "date": "2021-01-21",
+            "development_value": "4281220573.93542992",
+            "mentor_value": "4386783586.504226",
+            "absolute_difference": "105563012.56879608"
+          },
+          "sum_absolute_difference": "333562379.19310774"
+        },
+        "taker_buy_quote": {
+          "mentor_field": "taker_buy_dollar_volume",
+          "compared_dates": 1461,
+          "exact_matches": 622,
+          "exact_mismatches": 839,
+          "within_fixed_tolerance_including_exact": 1415,
+          "outside_fixed_tolerance": 46,
+          "maximum_absolute_difference": "47850695.40643282",
+          "largest_difference": {
+            "date": "2021-01-21",
+            "development_value": "2009389821.21275978",
+            "mentor_value": "2057240516.6191926",
+            "absolute_difference": "47850695.40643282"
+          },
+          "sum_absolute_difference": "164196980.22894918"
+        }
+      },
+      "summary": {
+        "close_exact_on_compared_common_dates": true,
+        "other_field_exact_difference_count": 2020,
+        "observed_history_identical": true,
+        "common_comparison_unambiguous": true,
+        "exact_reconciliation": false
+      }
+    },
+    "ETHUSDT": {
+      "coverage": {
+        "development": {
+          "rows": 1461,
+          "unique_dates": 1461,
+          "first_date": "2020-01-01",
+          "last_date": "2023-12-31",
+          "duplicates": [],
+          "gaps_within_observed_span": [],
+          "leading_absent_calendar_days": 0,
+          "trailing_absent_calendar_days": 0,
+          "boundary_interpretation": "Coverage only; no exchange listing date inferred"
+        },
+        "mentor": {
+          "rows": 1461,
+          "unique_dates": 1461,
+          "first_date": "2020-01-01",
+          "last_date": "2023-12-31",
+          "duplicates": [],
+          "gaps_within_observed_span": [],
+          "leading_absent_calendar_days": 0,
+          "trailing_absent_calendar_days": 0,
+          "boundary_interpretation": "Coverage only; no exchange listing date inferred"
+        }
+      },
+      "common_dates": 1461,
+      "compared_unique_dates": 1461,
+      "common_dates_excluded_due_to_duplicates": [],
+      "missing_from_development": [],
+      "missing_from_mentor": [],
+      "fields": {
+        "open": {
+          "mentor_field": "open",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "high": {
+          "mentor_field": "high",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "low": {
+          "mentor_field": "low",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "close": {
+          "mentor_field": "close",
+          "compared_dates": 1461,
+          "exact_matches": 1461,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1461,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "volume": {
+          "mentor_field": "volume",
+          "compared_dates": 1461,
+          "exact_matches": 1388,
+          "exact_mismatches": 73,
+          "within_fixed_tolerance_including_exact": 1414,
+          "outside_fixed_tolerance": 47,
+          "maximum_absolute_difference": "56043.76933000",
+          "largest_difference": {
+            "date": "2021-01-21",
+            "development_value": "2254164.80365000",
+            "mentor_value": "2310208.57298",
+            "absolute_difference": "56043.76933000"
+          },
+          "sum_absolute_difference": "124977.002730001474"
+        },
+        "quote_volume": {
+          "mentor_field": "dollar_volume",
+          "compared_dates": 1461,
+          "exact_matches": 1213,
+          "exact_mismatches": 248,
+          "within_fixed_tolerance_including_exact": 1414,
+          "outside_fixed_tolerance": 47,
+          "maximum_absolute_difference": "70276390.79616220",
+          "largest_difference": {
+            "date": "2021-01-21",
+            "development_value": "2787012514.78097050",
+            "mentor_value": "2857288905.5771327",
+            "absolute_difference": "70276390.79616220"
+          },
+          "sum_absolute_difference": "170293614.59360389"
+        },
+        "taker_buy_quote": {
+          "mentor_field": "taker_buy_dollar_volume",
+          "compared_dates": 1461,
+          "exact_matches": 1308,
+          "exact_mismatches": 153,
+          "within_fixed_tolerance_including_exact": 1414,
+          "outside_fixed_tolerance": 47,
+          "maximum_absolute_difference": "32962866.81853000",
+          "largest_difference": {
+            "date": "2021-01-21",
+            "development_value": "1346852630.20308530",
+            "mentor_value": "1379815497.0216153",
+            "absolute_difference": "32962866.81853000"
+          },
+          "sum_absolute_difference": "82713300.316158518"
+        }
+      },
+      "summary": {
+        "close_exact_on_compared_common_dates": true,
+        "other_field_exact_difference_count": 474,
+        "observed_history_identical": true,
+        "common_comparison_unambiguous": true,
+        "exact_reconciliation": false
+      }
+    },
+    "SOLUSDT": {
+      "coverage": {
+        "development": {
+          "rows": 1238,
+          "unique_dates": 1238,
+          "first_date": "2020-08-11",
+          "last_date": "2023-12-31",
+          "duplicates": [],
+          "gaps_within_observed_span": [],
+          "leading_absent_calendar_days": 223,
+          "trailing_absent_calendar_days": 0,
+          "boundary_interpretation": "Coverage only; no exchange listing date inferred"
+        },
+        "mentor": {
+          "rows": 1238,
+          "unique_dates": 1238,
+          "first_date": "2020-08-11",
+          "last_date": "2023-12-31",
+          "duplicates": [],
+          "gaps_within_observed_span": [],
+          "leading_absent_calendar_days": 223,
+          "trailing_absent_calendar_days": 0,
+          "boundary_interpretation": "Coverage only; no exchange listing date inferred"
+        }
+      },
+      "common_dates": 1238,
+      "compared_unique_dates": 1238,
+      "common_dates_excluded_due_to_duplicates": [],
+      "missing_from_development": [],
+      "missing_from_mentor": [],
+      "fields": {
+        "open": {
+          "mentor_field": "open",
+          "compared_dates": 1238,
+          "exact_matches": 1232,
+          "exact_mismatches": 6,
+          "within_fixed_tolerance_including_exact": 1232,
+          "outside_fixed_tolerance": 6,
+          "maximum_absolute_difference": "0.01040000",
+          "largest_difference": {
+            "date": "2020-08-22",
+            "development_value": "2.92130000",
+            "mentor_value": "2.9317",
+            "absolute_difference": "0.01040000"
+          },
+          "sum_absolute_difference": "0.02640000"
+        },
+        "high": {
+          "mentor_field": "high",
+          "compared_dates": 1238,
+          "exact_matches": 1238,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1238,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "low": {
+          "mentor_field": "low",
+          "compared_dates": 1238,
+          "exact_matches": 1238,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1238,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "close": {
+          "mentor_field": "close",
+          "compared_dates": 1238,
+          "exact_matches": 1238,
+          "exact_mismatches": 0,
+          "within_fixed_tolerance_including_exact": 1238,
+          "outside_fixed_tolerance": 0,
+          "maximum_absolute_difference": "0",
+          "largest_difference": null,
+          "sum_absolute_difference": "0.00000000"
+        },
+        "volume": {
+          "mentor_field": "volume",
+          "compared_dates": 1238,
+          "exact_matches": 1175,
+          "exact_mismatches": 63,
+          "within_fixed_tolerance_including_exact": 1192,
+          "outside_fixed_tolerance": 46,
+          "maximum_absolute_difference": "191522.86000000",
+          "largest_difference": {
+            "date": "2023-11-15",
+            "development_value": "12800109.28000000",
+            "mentor_value": "12608586.42",
+            "absolute_difference": "191522.86000000"
+          },
+          "sum_absolute_difference": "936598.4300000045"
+        },
+        "quote_volume": {
+          "mentor_field": "dollar_volume",
+          "compared_dates": 1238,
+          "exact_matches": 1174,
+          "exact_mismatches": 64,
+          "within_fixed_tolerance_including_exact": 1192,
+          "outside_fixed_tolerance": 46,
+          "maximum_absolute_difference": "12499422.07260000",
+          "largest_difference": {
+            "date": "2023-11-15",
+            "development_value": "793157487.20100000",
+            "mentor_value": "780658065.1284",
+            "absolute_difference": "12499422.07260000"
+          },
+          "sum_absolute_difference": "37880187.0825511746"
+        },
+        "taker_buy_quote": {
+          "mentor_field": "taker_buy_dollar_volume",
+          "compared_dates": 1238,
+          "exact_matches": 1166,
+          "exact_mismatches": 72,
+          "within_fixed_tolerance_including_exact": 1192,
+          "outside_fixed_tolerance": 46,
+          "maximum_absolute_difference": "6455785.04980000",
+          "largest_difference": {
+            "date": "2023-11-15",
+            "development_value": "408704501.58910000",
+            "mentor_value": "402248716.5393",
+            "absolute_difference": "6455785.04980000"
+          },
+          "sum_absolute_difference": "19986230.9588961282"
+        }
+      },
+      "summary": {
+        "close_exact_on_compared_common_dates": true,
+        "other_field_exact_difference_count": 205,
+        "observed_history_identical": true,
+        "common_comparison_unambiguous": true,
+        "exact_reconciliation": false
+      }
+    }
+  },
+  "exact_reconciliation": false,
+  "difference_records_total": 2699,
+  "difference_records_saved": 100,
+  "difference_sample_limit": 100,
+  "difference_sample_truncated": true
+}
