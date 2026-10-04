@@ -1,39 +1,39 @@
-# 10 月 10 日投递前的项目冲刺安排
+# Project sprint before applications begin on October 10
 
-10 月 10 日开始投递，项目允许写“进行中”。毕业研究优先；项目每日约 1.5 小时，不靠无限延长工时获得理想结果。每次开始先报告“今天完成什么、卡在哪里、下一步做什么”。
+Start submitting applications on October 10; the project may be described as work in progress. Graduation research takes priority. Spend approximately 1.5 hours per day on the project rather than extending work indefinitely to obtain favorable results. At the start of each session, report what has been completed today, what is blocked, and what comes next.
 
-## 必须完成的最小版本
+## Required minimum version
 
-一个明确的研究问题、一份提交冻结的协议、隔离的数据、可从头运行的 notebook、停留时间与 CK 两项诊断、三种预测器的 Brier/校准比较，以及一页如实报告结果的 README。BTC 为主实验，ETH/SOL 使用完全相同规格作次要迁移检查；时间不足时先完成 BTC，不用其他币取代不理想的主结果。
+One clear research question, a protocol frozen in a commit, isolated data, a notebook that runs from start to finish, two structural diagnostics covering residence times and Chapman–Kolmogorov (CK) consistency, a Brier-score/calibration comparison of three predictors, and a one-page README that reports the results honestly. BTC is the primary experiment. ETH and SOL use exactly the same specification as secondary transfer checks. If time is short, complete BTC first; do not replace an unfavorable primary result with another asset.
 
-谱特征只作附录诊断；交易策略、Sharpe 优化、期权、HMM、Koopman、新特征搜索和半 Markov 模型扩展均不在这次截止日前的范围内。
+Spectral features are appendix diagnostics only. Trading strategies, Sharpe optimization, options, HMMs, Koopman methods, new-feature searches, and semi-Markov extensions are outside the scope of this deadline.
 
-## 每个日期要拿到什么
+## Planned deliverables by date
 
-| 日期 | 验收成果 |
+| Date | Deliverable for review |
 |---|---|
-| 10 月 1 日 | 明确范围；审查下载入口；准备隔离下载与 checksum 校验；写协议草案 |
-| 10 月 2 日 | 开发期数据下载；核对 2020—2023 与导师 CSV 的逐日日期和价格；测试数据只封存与检查日历；初始化 Git 并首次提交 |
-| 10 月 3 日 | 用模拟链验证首达概率、CK、停留段边界处理；讲清三种预测器；不查看新价格 |
-| 10 月 4 日 | 完成协议、评分代码及关键测试，提交冻结，记录 commit 和文件摘要；若仍有缺项，不解封测试集 |
-| 10 月 5 日 | 补齐可能延迟发布的 9 月月包；完成开发期运行与图表 |
-| 10 月 6 日 | 开发期结果、三分钟介绍；第一次模拟面试；发现实现错误则在解封前记录修正，不悄悄替换协议 |
-| 10 月 7 日 | 前置条件满足后，对 2024—2026-09 按冻结流程一次评估；同时保存全部预定比较，不挑资产或月份 |
-| 10 月 8 日 | 检查结论是否由证据支持；解释偏差和不确定性，不按测试成绩调参 |
-| 10 月 9 日 | README 一页研究报告、复现命令和必要图表；整理并发布代码；第二次模拟面试 |
-| 10 月 10 日 | 简历如实写实际进度和结果，开始投递 |
+| October 1 | Define the scope; review download entry points; prepare isolated downloads and checksum verification; draft the protocol |
+| October 2 | Download development data; reconcile daily dates and prices for 2020–2023 against the advisor's CSV; only seal test data and check its calendar; initialize Git and make the first commit |
+| October 3 | Use simulated chains to validate first-passage probabilities, CK, and residence-run boundary handling; explain the three predictors; do not inspect new prices |
+| October 4 | Complete the protocol, scoring code, and key tests; freeze them in a commit and record the commit and file hashes; do not unseal the test set if any prerequisites remain incomplete |
+| October 5 | Add any September monthly archives whose release was delayed; complete the development-period run and figures |
+| October 6 | Review development results and prepare a three-minute introduction; hold the first mock interview; record fixes to implementation errors before unsealing rather than silently replacing the protocol |
+| October 7 | Once all prerequisites are met, evaluate 2024–2026-09 once using the frozen workflow; save every prespecified comparison together, without selecting assets or months |
+| October 8 | Check whether the evidence supports the conclusions; explain bias and uncertainty without tuning to test performance |
+| October 9 | Complete the README's one-page research report, reproduction commands, and necessary figures; organize and publish the code; hold the second mock interview |
+| October 10 | Describe the actual progress and results honestly on the resume and begin applications |
 
-时间不足时缩小附录和次要资产，不能绕过冻结和数据完整性条件。没有及时完成新测试，就展示开发期与“新样本评估待完成”，投递日期仍不变。计划日期不会自动启动任务；用户回来时继续推进。
+If time is short, reduce appendix work and secondary assets; do not bypass the protocol-freeze or data-completeness conditions. If the new-data evaluation is not completed in time, present the development results and state that evaluation on the new sample is pending. The application date does not change. Planned dates do not automatically launch tasks; work resumes when the user returns.
 
-## 研究表述的四个修正
+## Four corrections to the research framing
 
-1. CK 一致和几何停留是若干必要含义，通过它们不等于证明一阶 Markov 性。拒绝齐次近似可能来自时间变化、遗漏状态或历史依赖，需要区分。
-2. 结构检验与预测评价分开。结构不符不自动证明预测必然失败；预测没赢也不证明状态完全没有信息。
-3. 同时比较无条件事件频率、按当前状态分组的直接五日事件频率和 Markov 首达概率。前两个分离状态信息，后两个检验多步模型是否增加价值。
-4. Git 提交、数据摘要和执行日志提供可追溯记录，不能单独证明研究者绝对没有偷看。项目只如实声明已执行的隔离流程及任何偏离。
+1. CK consistency and geometric residence times are necessary implications, but passing these checks does not prove first-order Markov behavior. Rejection of a homogeneous approximation may reflect time variation, omitted states, or history dependence; these possibilities must be distinguished.
+2. Separate structural tests from predictive evaluation. Structural mismatch does not automatically establish predictive failure, and failure to outperform a baseline does not prove that the states contain no information.
+3. Compare unconditional event frequency, direct five-day event frequency grouped by the current state, and Markov first-passage probabilities. Comparing the first two isolates state information; comparing the latter two examines whether the multistep model adds value.
+4. Git commits, data hashes, and execution logs provide a traceable record; they cannot alone prove that a researcher never looked at the test data. The project will honestly describe the isolation procedures actually followed and any deviations.
 
-## 学习和面试节奏
+## Learning and interview rhythm
 
-每完成一个模块，用户先用自己的话解释“它算什么、为什么这样算、什么时候会失效”；讲不清就暂停讲解，不继续堆功能。模拟面试先无稿三分钟陈述，再由面试人追问，不提前展示具体题目。本项目不会代替投递、概率练习或毕业工作。
+After each module, the user first explains in their own words what it computes, why it is computed that way, and when it can fail. If this cannot be explained clearly, pause to work through the explanation instead of adding more functionality. Mock interviews begin with an unscripted three-minute presentation, followed by questions from the interviewer; specific questions are not shown in advance. This project does not replace applications, probability practice, or graduation work.
 
-身份、OPT 和雇主要求不在本次技术方案中核验，按用户计划另向学校 DSO/OISS 和各雇主确认。
+Immigration status, OPT, and employer requirements are not verified as part of this technical plan. Following the user's plan, confirm them separately with the school's DSO/OISS and individual employers.

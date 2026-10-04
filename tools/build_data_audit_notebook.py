@@ -23,13 +23,13 @@ kernel.mkdir(parents=True, exist_ok=True)
 os.environ['JUPYTER_PATH'] = str(kernel_root)
 md, code = nbf.v4.new_markdown_cell, nbf.v4.new_code_cell
 cells = [
-    md('''# 开发期数据对账与封存日历检查
+    md('''# Development data reconciliation and sealed calendar checks
 
-本 notebook 重做开发期对账，并查看已生成的纯日期覆盖审计。它不读取测试期 ZIP 或价格 CSV，不运行收益、状态或模型评分。价格差异以原始十进制比较，不通过四舍五入隐藏差异。
+This notebook reruns the development data reconciliation and reads the existing date-only coverage audit. It does not read holdout ZIPs or price CSVs, calculate returns or states, or score models. Prices are compared as exact decimal values; rounding is not used to conceal differences.
 
-## 方法和边界
+## Methods and boundaries
 
-输入限定为三个 `*_1d_2020-01_2023-12.csv` 和导师 CSV。对账模块先验证日期再转换数值，拒绝 2024 年及以后的行。源码是 `tools/reconcile_development.py`；下载覆盖代码是 `tools/audit_download_coverage.py`。下面保留原始字段名，便于回查。
+Inputs are limited to the three `*_1d_2020-01_2023-12.csv` files and the mentor's CSV. The reconciliation module validates dates before converting numerical values and rejects rows from 2024 onward. Its source is `tools/reconcile_development.py`; download coverage is audited by `tools/audit_download_coverage.py`. Original field names are retained below for traceability.
 '''),
     code('''from pathlib import Path
 import json, sys, html
@@ -49,9 +49,9 @@ def show_table(rows):
     body = ''.join('<tr>' + ''.join('<td>' + html.escape(str(r[c])) + '</td>' for c in columns) + '</tr>' for r in rows)
     display(HTML('<table><thead><tr>' + header + '</tr></thead><tbody>' + body + '</tbody></table>'))
 '''),
-    md('''## 日期和收盘价是否一致
+    md('''## Date and closing-price agreement
 
-先确认比较对象是同一资产、同一天；重复键不任意保留第一行或最后一行。日历覆盖和数值比较分别报告。
+First confirm that each comparison concerns the same asset and date. Duplicate keys are not resolved by arbitrarily retaining the first or last row. Calendar coverage and numerical agreement are reported separately.
 '''),
     code('''rows = []
 for asset, result in report['assets'].items():
@@ -65,9 +65,9 @@ for asset, result in report['assets'].items():
 show_table(rows)
 print('All columns exactly reconciled:', report['exact_reconciliation'])
 '''),
-    md('''## 不能忽略的非收盘价差异
+    md('''## Differences in other fields
 
-下表列出所有非精确匹配字段。固定容差仅用于描述差异大小，不把“容差内”改写成“完全一样”。因此工具返回状态 1 可以表示如实发现差异，并非程序崩溃。
+The table below lists every field with an exact mismatch. Fixed tolerances describe the size of differences; a value within tolerance is not relabeled as exactly equal. A tool exit status of 1 can therefore indicate a faithfully reported discrepancy rather than a program crash.
 '''),
     code('''field_rows = []
 for asset, result in report['assets'].items():
@@ -79,9 +79,9 @@ for asset, result in report['assets'].items():
                                'max_absolute_difference': item['maximum_absolute_difference']})
 show_table(field_rows)
 '''),
-    md('''## 新测试期只查看日期审计
+    md('''## Date-only checks for the new holdout
 
-以下读取的是下载器与覆盖工具生成的 JSON，不包含价格。未完成的尾部必须保持为未完成，不能为了方便改动测试终点。SOL 上线前的排除依据单列在覆盖审计中。
+The following inputs are JSON files produced by the downloader and coverage tool. They contain no prices. An incomplete tail must remain marked incomplete; the test endpoint must not be changed for convenience. The coverage audit separately records the basis for excluding SOL dates before listing.
 '''),
     code('''coverage_path = ROOT / 'results/data_audit/download_coverage_audit.json'
 coverage_audit = json.loads(coverage_path.read_text())
@@ -99,18 +99,18 @@ for partition, part in coverage_audit['partitions'].items():
 show_table(coverage_rows)
 print('Target remains 2026-09-30; available prefix is not a completed holdout.')
 '''),
-    md('''## 保存的输入摘要
+    md('''## Saved input hashes
 
-对账摘要可用于检查后续是否更换输入；它不能替代正确的方法或证明没人看过数据。
+The reconciliation hashes help detect changes to inputs. They do not replace sound methodology or prove that nobody inspected the data.
 '''),
     code('''show_table([{'source': name, 'bytes': info['bytes'], 'rows': info['rows'],
              'sha256': info['sha256']} for name, info in report['inputs'].items()])
 '''),
-    md('''## 解读边界
+    md('''## Interpretation limits
 
-在本次已执行结果中，开发期的日期及三个资产的收盘价一致，部分开盘价和成交量字段不同。既定主模型只用收盘价，故可以继续；成交量研究需要另查差异原因。结构假设、预测能力、未发布测试尾部和实验协议冻结都不是这次对账能够证明的事。
+In this executed audit, development dates and closing prices agree for all three assets, while some opening prices and volume fields differ. The predefined main model uses closing prices only, so that work can continue. Research using volume requires a separate investigation of the discrepancies. This reconciliation does not establish structural assumptions, predictive ability, availability of the unpublished holdout tail, or protocol freeze status.
 
-详细解释见 `research/data_audit_2026_10_02.md`。HTML 已从执行结果导出；本轮未作浏览器排版验收。
+See `research/data_audit_2026_10_02.md` for details. HTML was exported from the executed results; browser layout has not been visually reviewed.
 '''),
 ]
 nb = nbf.v4.new_notebook(cells=cells, metadata={

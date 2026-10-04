@@ -1,42 +1,42 @@
-# 10 月 2 日数据下载与开发期对账
+# October 2 Data Download and Development-Period Reconciliation
 
-本轮核对的是数据来源、日期和字段一致性，没有开展模型选择或新测试集评估。开发期使用 Binance 官方月度现货日 K 线，逐日对照导师提供的 `AFP_binance_spots.csv`。新测试期仍封存；9 月月包尚未下载成功，不能称为测试期数据已经齐全。
+This round checked data provenance, dates, and field consistency; it did not perform model selection or evaluate the new test set. Development-period data use Binance's official monthly spot daily candlesticks, compared day by day with the mentor-provided `AFP_binance_spots.csv`. The new test period remains sealed. The September monthly archives have not yet been downloaded successfully, so the test-period data cannot be described as complete.
 
-## 开发数据可以用于既定的收盘价模型
+## Development data support the planned close-price model
 
-| 资产 | 日期范围 | 日数 | 日期键与导师数据 | 收盘价精确匹配 |
+| Asset | Date range | Days | Date keys versus mentor data | Exact close-price matches |
 |---|---|---:|---|---:|
-| BTCUSDT | 2020-01-01 至 2023-12-31 | 1,461 | 完全一致 | 1,461 / 1,461 |
-| ETHUSDT | 2020-01-01 至 2023-12-31 | 1,461 | 完全一致 | 1,461 / 1,461 |
-| SOLUSDT | 2020-08-11 至 2023-12-31 | 1,238 | 完全一致 | 1,238 / 1,238 |
+| BTCUSDT | 2020-01-01 through 2023-12-31 | 1,461 | Identical | 1,461 / 1,461 |
+| ETHUSDT | 2020-01-01 through 2023-12-31 | 1,461 | Identical | 1,461 / 1,461 |
+| SOLUSDT | 2020-08-11 through 2023-12-31 | 1,238 | Identical | 1,238 / 1,238 |
 
-使用原始十进制数值比较，而不是先转成浮点数后四舍五入。三个资产共 4,160 个收盘价完全一致，高价和低价也一致。因此，既定模型使用的收盘价序列在公共开发区间上没有发生变化。
+The comparison uses the original decimal values, without first converting to floating point and rounding. All 4,160 closing prices across the three assets match exactly, as do the high and low prices. The close-price series used by the planned model therefore remain unchanged over the common development period.
 
-BTC/ETH 开盘价一致，SOL 开盘价有 6 天不同，最大绝对差为 0.0104 USDT。三个资产的成交量和成交额存在差异，部分远大于十进制表示误差，不能全部归为舍入噪声：BTC 单日成交量最大绝对差约 3,200.89 BTC，ETH 约 56,043.77 ETH，SOL 约 191,522.86 SOL。这些数值是两份开发数据之间的差值，不是交易量本身，也不是任何模型结果。
+BTC/ETH opening prices match. SOL opening prices differ on 6 days, with a maximum absolute difference of 0.0104 USDT. Trading volume and quote-asset volume differ across all three assets, with some differences far exceeding decimal representation error; they cannot all be attributed to rounding noise. The maximum absolute daily trading-volume difference is approximately 3,200.89 BTC for BTC, 56,043.77 ETH for ETH, and 191,522.86 SOL for SOL. These numbers are differences between the two development datasets, not the trading volumes themselves or any model results.
 
-差异原因尚未确证。本轮不修改导师数据，不把两个来源的字段拼接成第三份数据，也不为消除差异而改变容差。后续主研究采用官方档案的收盘价；原协议本来就只用收盘收益构造状态，所以这一选择并非看到字段差异后临时筛选特征。如果未来要研究成交量，必须单独解释并解决这部分差异。
+The causes of the discrepancies have not been confirmed. This round does not modify the mentor data, combine fields from the two sources into a third dataset, or change tolerances to eliminate differences. Subsequent primary research will use closing prices from the official archives. The original protocol already constructs states solely from close-to-close returns, so this choice is not a feature selection decision made after observing the field discrepancies. Any future study of volume must separately explain and resolve these differences.
 
-## SOL 上线前的空档有明确含义
+## SOL's pre-listing absence has a documented explanation
 
-Binance 官方公告计划于 **2020-08-11 06:00 UTC** 开放 SOL/USDT 交易。档案首日与此一致，所以 2020 年 1—7 月没有该交易对月包、8 月 1—10 日没有日记录，属于交易对尚未上线，不应补零或插值。8 月 11 日是部分交易日，保留其收盘观测并注明这一点；下一天起才有完整 UTC 交易日。[官方公告](https://www.binance.com/en/support/announcement/detail/cf77f566c9b64cc791fc152679175de8)
+Binance's official announcement scheduled SOL/USDT trading to open at **2020-08-11 06:00 UTC**. The first archived date is consistent with that schedule. The absence of monthly archives for this pair from January through July 2020 and daily records for August 1–10 reflects the period before the pair was listed; these dates should not be filled with zeros or interpolated. August 11 is a partial trading day: retain its closing observation and document that fact. Full UTC trading days begin the following day. [Official announcement](https://www.binance.com/en/support/announcement/detail/cf77f566c9b64cc791fc152679175de8)
 
-下载器原始日志按“从 2020 年 1 月起每个月都必须存在”检查，因此返回 `complete_requested_range=false`。覆盖审计保留这个原始结果，再根据官方上线日期单独判断实际交易期间是否连续，不通过修改原日志把失败伪装成成功。
+The downloader's raw log checks whether every month starting in January 2020 exists, so it returns `complete_requested_range=false`. The coverage audit preserves that original result and separately assesses continuity during the actual trading period using the official listing date. It does not alter the original log to disguise a failure as a success.
 
-## 新测试期只核对了日历
+## Only calendar coverage was checked for the new test period
 
-2024-01 至 2026-08 的 BTC/ETH/SOL 月包已下载并校验 SHA-256，每个资产 32 个月包。2026-09 的三个请求返回 HTTP 404。测试期目标终点仍是 2026-09-30，没有为了已有数据缩短评估区间。
+The BTC/ETH/SOL monthly archives from 2024-01 through 2026-08 have been downloaded and verified with SHA-256: 32 monthly archives per asset. The three requests for 2026-09 returned HTTP 404. The target end date remains 2026-09-30; the evaluation interval has not been shortened to fit the data already available.
 
-Binance 文档说明月包在每月第一个星期一提供；据此推算 9 月月包可能在 10 月 5 日提供，这不是对实际上传时间的保证。按冲刺安排届时补齐并重新核对时间戳覆盖。[官方档案说明](https://github.com/binance/binance-public-data)
+Binance documentation states that monthly archives are provided on the first Monday of each month. On that basis, the September archives may be available on October 5; this is not a guarantee of the actual upload time. Under the sprint schedule, obtain the missing archives then and recheck timestamp coverage. [Official archive documentation](https://github.com/binance/binance-public-data)
 
-封存检查只使用每条记录逗号前的时间戳字节，未解码或导出 OHLC/成交量，未计算新时期的收益、状态、分布或评分。ZIP 保留在 `data/holdout_sealed/`；`data/` 不进入 Git。校验和证明下载文件与其声明摘要一致，不证明交易所记录绝对无误，也不证明模型有效。
+The sealed-data check used only the timestamp bytes before the first comma in each record. It did not decode or export OHLC/volume, or compute returns, states, distributions, or scores for the new period. ZIP files remain in `data/holdout_sealed/`; `data/` is excluded from Git. Checksums establish that downloaded files match their declared digests; they do not establish that exchange records are completely error-free or that a model is valid.
 
-另作来源检索记录：核对上线公告时，搜索引擎曾返回带行情文字的非目标网页摘要；未打开相关页面，也未把其用于模型设计或计算。这里声明的是测试档案和研究流程的隔离，不声称任何参与者从未接触过新时期的零散市场信息。
+Additional provenance note: while verifying the listing announcement, a search engine returned snippets from unrelated pages containing market-price text. Those pages were not opened, and that content was not used in model design or calculations. The claim here concerns separation of the test archives and research workflow, not that every participant has never encountered isolated market information from the new period.
 
-## 证据与复现
+## Evidence and reproduction
 
-对账工具与覆盖工具保存逐字段结果、有限差异样本、来源 URL 和档案摘要。运行代码、结果表与日历审计进入首次 Git 提交；原始数据留在忽略目录。首次提交是项目开始建立版本记录，不是实验协议已经冻结。
+The reconciliation and coverage tools save field-level results, a limited sample of differences, source URLs, and archive digests. The code, result tables, and calendar audit are included in the first Git commit; raw data remain in an ignored directory. The first commit marks the start of version tracking for the project, not the freezing of the experimental protocol.
 
-开发期重新对账的命令（在项目根目录）：
+Commands to rerun development-period reconciliation, from the project root:
 
 ```sh
 python3 tools/reconcile_development.py \
@@ -49,4 +49,4 @@ python3 tools/audit_download_coverage.py \
   --output-dir results/data_audit
 ```
 
-今天应能独立说明的核心区别：**日期齐全、文件校验通过、与另一个来源一致，是三种不同检查。** 本轮支持收盘价研究继续推进；成交量字段和尚未发布的测试期尾部，仍各有明确限制。
+The key distinction to explain independently today: **complete dates, successful file verification, and agreement with another source are three different checks.** This round supports continuing the close-price research; the volume fields and the unpublished tail of the test period each retain explicit limitations.

@@ -36,3 +36,18 @@ No rejection does not prove Markovity; rejection of a homogeneous approximation
 does not by itself explain forecast failure. Git history is an audit trail, not
 independent proof that nobody inspected data. State only milestones actually
 completed. The reference project is `../../ChatGPT/bitcoin/btcdyn_research`.
+
+
+## Language and collaboration
+
+Write all project files in English, including documentation, code comments,
+notebook explanations, output labels, and generated reading copies. Continue
+user-facing conversation in Chinese. Preserve this convention in future work.
+Teach and implement one module at a time. A question about a design choice is
+not itself a request to change that choice; explain the rationale and retain
+reasonable defaults unless the user asks for a change. State labels remain 0, 1, 2.
+
+Keep core research calculations inside the main notebook, defined in the order
+they are explained and used, so an interview walkthrough stays in one file.
+Do not extract them into a separate Python module unless the user requests it.
+Synthetic tests may remain separate and should exercise the notebook definitions.

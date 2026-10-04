@@ -7802,8 +7802,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E5%BC%80%E5%8F%91%E6%9C%9F%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B4%A6%E4%B8%8E%E5%B0%81%E5%AD%98%E6%97%A5%E5%8E%86%E6%A3%80%E6%9F%A5">开发期数据对账与封存日历检查<a class="anchor-link" href="#%E5%BC%80%E5%8F%91%E6%9C%9F%E6%95%B0%E6%8D%AE%E5%AF%B9%E8%B4%A6%E4%B8%8E%E5%B0%81%E5%AD%98%E6%97%A5%E5%8E%86%E6%A3%80%E6%9F%A5">¶</a></h1><p>本 notebook 重做开发期对账，并查看已生成的纯日期覆盖审计。它不读取测试期 ZIP 或价格 CSV，不运行收益、状态或模型评分。价格差异以原始十进制比较，不通过四舍五入隐藏差异。</p>
-<h2 id="%E6%96%B9%E6%B3%95%E5%92%8C%E8%BE%B9%E7%95%8C">方法和边界<a class="anchor-link" href="#%E6%96%B9%E6%B3%95%E5%92%8C%E8%BE%B9%E7%95%8C">¶</a></h2><p>输入限定为三个 <code>*_1d_2020-01_2023-12.csv</code> 和导师 CSV。对账模块先验证日期再转换数值，拒绝 2024 年及以后的行。源码是 <code>tools/reconcile_development.py</code>；下载覆盖代码是 <code>tools/audit_download_coverage.py</code>。下面保留原始字段名，便于回查。</p>
+<h1 id="Development-data-reconciliation-and-sealed-calendar-checks">Development data reconciliation and sealed calendar checks<a class="anchor-link" href="#Development-data-reconciliation-and-sealed-calendar-checks">¶</a></h1><p>This notebook reruns the development data reconciliation and reads the existing date-only coverage audit. It does not read holdout ZIPs or price CSVs, calculate returns or states, or score models. Prices are compared as exact decimal values; rounding is not used to conceal differences.</p>
+<h2 id="Methods-and-boundaries">Methods and boundaries<a class="anchor-link" href="#Methods-and-boundaries">¶</a></h2><p>Inputs are limited to the three <code>*_1d_2020-01_2023-12.csv</code> files and the mentor's CSV. The reconciliation module validates dates before converting numerical values and rejects rows from 2024 onward. Its source is <code>tools/reconcile_development.py</code>; download coverage is audited by <code>tools/audit_download_coverage.py</code>. Original field names are retained below for traceability.</p>
 </div>
 </div>
 </div>
@@ -7844,7 +7844,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E6%97%A5%E6%9C%9F%E5%92%8C%E6%94%B6%E7%9B%98%E4%BB%B7%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4">日期和收盘价是否一致<a class="anchor-link" href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%94%B6%E7%9B%98%E4%BB%B7%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4">¶</a></h2><p>先确认比较对象是同一资产、同一天；重复键不任意保留第一行或最后一行。日历覆盖和数值比较分别报告。</p>
+<h2 id="Date-and-closing-price-agreement">Date and closing-price agreement<a class="anchor-link" href="#Date-and-closing-price-agreement">¶</a></h2><p>First confirm that each comparison concerns the same asset and date. Duplicate keys are not resolved by arbitrarily retaining the first or last row. Calendar coverage and numerical agreement are reported separately.</p>
 </div>
 </div>
 </div>
@@ -7898,7 +7898,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E4%B8%8D%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E9%9D%9E%E6%94%B6%E7%9B%98%E4%BB%B7%E5%B7%AE%E5%BC%82">不能忽略的非收盘价差异<a class="anchor-link" href="#%E4%B8%8D%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E9%9D%9E%E6%94%B6%E7%9B%98%E4%BB%B7%E5%B7%AE%E5%BC%82">¶</a></h2><p>下表列出所有非精确匹配字段。固定容差仅用于描述差异大小，不把“容差内”改写成“完全一样”。因此工具返回状态 1 可以表示如实发现差异，并非程序崩溃。</p>
+<h2 id="Differences-in-other-fields">Differences in other fields<a class="anchor-link" href="#Differences-in-other-fields">¶</a></h2><p>The table below lists every field with an exact mismatch. Fixed tolerances describe the size of differences; a value within tolerance is not relabeled as exactly equal. A tool exit status of 1 can therefore indicate a faithfully reported discrepancy rather than a program crash.</p>
 </div>
 </div>
 </div>
@@ -7943,7 +7943,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E6%96%B0%E6%B5%8B%E8%AF%95%E6%9C%9F%E5%8F%AA%E6%9F%A5%E7%9C%8B%E6%97%A5%E6%9C%9F%E5%AE%A1%E8%AE%A1">新测试期只查看日期审计<a class="anchor-link" href="#%E6%96%B0%E6%B5%8B%E8%AF%95%E6%9C%9F%E5%8F%AA%E6%9F%A5%E7%9C%8B%E6%97%A5%E6%9C%9F%E5%AE%A1%E8%AE%A1">¶</a></h2><p>以下读取的是下载器与覆盖工具生成的 JSON，不包含价格。未完成的尾部必须保持为未完成，不能为了方便改动测试终点。SOL 上线前的排除依据单列在覆盖审计中。</p>
+<h2 id="Date-only-checks-for-the-new-holdout">Date-only checks for the new holdout<a class="anchor-link" href="#Date-only-checks-for-the-new-holdout">¶</a></h2><p>The following inputs are JSON files produced by the downloader and coverage tool. They contain no prices. An incomplete tail must remain marked incomplete; the test endpoint must not be changed for convenience. The coverage audit separately records the basis for excluding SOL dates before listing.</p>
 </div>
 </div>
 </div>
@@ -8001,7 +8001,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E4%BF%9D%E5%AD%98%E7%9A%84%E8%BE%93%E5%85%A5%E6%91%98%E8%A6%81">保存的输入摘要<a class="anchor-link" href="#%E4%BF%9D%E5%AD%98%E7%9A%84%E8%BE%93%E5%85%A5%E6%91%98%E8%A6%81">¶</a></h2><p>对账摘要可用于检查后续是否更换输入；它不能替代正确的方法或证明没人看过数据。</p>
+<h2 id="Saved-input-hashes">Saved input hashes<a class="anchor-link" href="#Saved-input-hashes">¶</a></h2><p>The reconciliation hashes help detect changes to inputs. They do not replace sound methodology or prove that nobody inspected the data.</p>
 </div>
 </div>
 </div>
@@ -8039,8 +8039,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="%E8%A7%A3%E8%AF%BB%E8%BE%B9%E7%95%8C">解读边界<a class="anchor-link" href="#%E8%A7%A3%E8%AF%BB%E8%BE%B9%E7%95%8C">¶</a></h2><p>在本次已执行结果中，开发期的日期及三个资产的收盘价一致，部分开盘价和成交量字段不同。既定主模型只用收盘价，故可以继续；成交量研究需要另查差异原因。结构假设、预测能力、未发布测试尾部和实验协议冻结都不是这次对账能够证明的事。</p>
-<p>详细解释见 <code>research/data_audit_2026_10_02.md</code>。HTML 已从执行结果导出；本轮未作浏览器排版验收。</p>
+<h2 id="Interpretation-limits">Interpretation limits<a class="anchor-link" href="#Interpretation-limits">¶</a></h2><p>In this executed audit, development dates and closing prices agree for all three assets, while some opening prices and volume fields differ. The predefined main model uses closing prices only, so that work can continue. Research using volume requires a separate investigation of the discrepancies. This reconciliation does not establish structural assumptions, predictive ability, availability of the unpublished holdout tail, or protocol freeze status.</p>
+<p>See <code>research/data_audit_2026_10_02.md</code> for details. HTML was exported from the executed results; browser layout has not been visually reviewed.</p>
 </div>
 </div>
 </div>

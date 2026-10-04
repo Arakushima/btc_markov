@@ -1,41 +1,56 @@
-# BTC 市场状态的马尔可夫性检验与短期风险预测
+# Tests of Markovity in BTC Market States and Short-Term Risk Forecasting
 
-进行中。目标是检验固定三状态表示下的 Markov 近似，并评价五日风险概率预测；10 月 10 日开始投递，不以项目取得正结果为前提。
+Work in progress. The aim is to test a Markov approximation under a fixed three-state representation and evaluate five-day risk probability forecasts. Job applications begin on October 10, regardless of whether the project produces positive results.
 
-- [冲刺安排与范围](research/sprint_plan_2026_10.md)
-- [研究协议草案，尚未冻结](research/protocol_2026_holdout_draft.md)
-- [当前进度与下一步](research/status.md)
-- [10 月 2 日数据对账结论](research/data_audit_2026_10_02.md)
-- [可重跑的数据审计 notebook](notebooks/00_data_audit.ipynb)
+- [Sprint schedule and scope](research/sprint_plan_2026_10.md)
+- [Draft research protocol, not yet frozen](research/protocol_2026_holdout_draft.md)
+- [Current status and next steps](research/status.md)
+- [October 2 data reconciliation findings](research/data_audit_2026_10_02.md)
+- [Rerunnable data audit notebook](notebooks/00_data_audit.ipynb)
+- [Main research notebook: BTC states and first passage](notebooks/01_states_and_first_passage.ipynb) (real development data; 2023 matrices, first-passage probabilities, a CK diagnostic, and outcome labels; predictive evaluation pending)
 
-研究问题：BTC 的固定离散状态是否与齐次一阶 Markov 模型的若干可检验含义相容？按预先规定的局部估计规则，Markov 模型的五日首次风险到达概率能否优于直接历史频率？检验没有拒绝并不证明 Markov 性；结构偏离与预测价值分别评价。
+Research questions: Are BTC's fixed discrete states compatible with selected testable implications of a homogeneous first-order Markov model? Under prespecified local estimation rules, can the Markov model's probability of first reaching the risk state within five days outperform direct historical frequency? Failure to reject does not prove Markovity; structural departures and predictive value are evaluated separately.
 
-## 数据隔离
+## Data separation
 
-原始来源为 Binance 官方 `data.binance.vision` 的 spot `1d` 文件。2020—2023 年是已经使用过的开发数据。2024-01-01 至 2026-09-30 是计划保留的测试区间；在协议与代码提交冻结前，只允许下载封存、校验文件和核对行数、日期缺口，不读取价格、计算收益或画图。
+The original source is Binance's official spot `1d` files on `data.binance.vision`. The 2020–2023 period is development data that has already been used. The planned reserved test period is 2024-01-01 through 2026-09-30. Until the protocol and code are committed and frozen, only sealed downloads, file verification, row counts, and date-gap checks are permitted; prices must not be read, returns computed, or charts drawn.
 
-下载器默认仅处理开发期。显式选择测试期时只保存经过 SHA-256 校验的 ZIP，并读取每行的时间戳字段生成日历覆盖记录；不会导出测试期价格 CSV。这里的封存是工作流程隔离，不是不可绕过的访问控制。
+The downloader processes only the development period by default. When the test period is explicitly selected, it saves only ZIP files that pass SHA-256 verification and reads each row's timestamp field to produce calendar-coverage records; it does not export a test-period price CSV. Sealing here is separation through the workflow, not access control that cannot be bypassed.
 
 ```sh
-# 不联网、不写文件，仅列出计划
+# List the plan only: no network access or file writes
 python3 tools/download_binance.py --dry-run
 
-# 执行开发期下载
+# Download development-period data
 python3 tools/download_binance.py --partition development
 
-# 显式下载封存测试期，仅核对时间戳覆盖
+# Explicitly download and seal test-period data; check timestamp coverage only
 python3 tools/download_binance.py --partition holdout
 
-# 假数据单元测试，不接触任何真实行情
+# Unit tests with synthetic data; no real market data accessed
 python3 -m unittest discover -s tests -p 'test_download_binance.py' -v
 ```
 
-新数据保存于 `data/development/`、`data/holdout_sealed/`，日历记录在 `data/metadata/`；`data/` 整体不进入 Git。缺月、缺日或校验失败会报告为未完成。SOL 上线前的空档必须与上市后的数据缺口区分；首次出现数据之前的缺失只标记为待确认，不自行认定上市日期。
+New data are stored in `data/development/` and `data/holdout_sealed/`, with calendar records in `data/metadata/`; the entire `data/` directory is excluded from Git. Missing months, missing days, or verification failures are reported as incomplete. SOL's pre-listing absence must be distinguished from gaps after listing. Missing records before the first observed data are marked as requiring confirmation; the downloader does not infer a listing date on its own.
 
-Binance 文档称月包通常在每月第一个周一发布，因此 2026 年 9 月月包可能要到 10 月 5 日才齐。若尚未发布，先完成开发期工作，之后补齐同一来源的月包，不静默缩短测试期。2025-01-01 起的 spot 时间戳改为微秒，下载器需同时验证量级、日期分界和 UTC 日边界。[官方数据说明](https://github.com/binance/binance-public-data)
+Binance documentation states that monthly archives are generally published on the first Monday of each month, so the September 2026 archives may not all be available until October 5. If they have not been published, complete the development-period work first and later obtain the missing monthly archives from the same source; do not silently shorten the test period. Spot timestamps changed to microseconds starting on 2025-01-01, so the downloader must verify the magnitude, the date boundary between units, and UTC day boundaries. [Official data documentation](https://github.com/binance/binance-public-data)
 
-## 参考工作
+## Research workflow
 
-数据下载与对账 CLI 仅需 Python 标准库。可选 notebook 环境使用 `requirements-notebook.txt`；安装后运行 `python tools/build_data_audit_notebook.py` 重建已执行 notebook 和 HTML。数据审计 notebook 会重新读取开发期 CSV，测试期仅读取安全的日期汇总 JSON。开发 CSV 文件名带明确日期范围，单月下载不会覆盖完整开发文件。
+Continue extending the existing main notebook: development closing prices → causal states → the fixed 2023 transition matrix → implied five-day first-passage probabilities → a five-step CK structural diagnostic → outcome-label preparation for later rolling forecasts. The current 2023 calculation is in-sample and uses raw transition frequencies. It is not a rolling forecast or evidence of predictive improvement. Section 7 separately compares direct five-day endpoint transitions with the fifth power of the one-day matrix. Its weighted discrepancy is calibrated using 1,999 fitted-chain simulations with full refitting. The development CK result is T = 0.00082223, with an approximate unadjusted p-value of 0.8090 (1,617 of 1,999 simulated discrepancies at least as large; zero invalid simulations). This check did not identify an unusually large discrepancy under the fitted null. The planned joint Holm conclusion awaits the residence-time diagnostic. Neither nonrejection nor rejection establishes predictive value.
 
-旧实现见本地的 [参考项目](../../ChatGPT/bitcoin/btcdyn_research/README.md)。其 2023 年 BTC Markov Brier 约 0.2495，历史频率约 0.2481；这是已使用的旧结果，不是本次新测试成绩。旧交易策略、期权信号和 Sharpe 优化不进入本次主项目。
+Core functions are defined directly in the main notebook, beside the relevant equations and before their use on real data. This keeps the complete research explanation in one file for an interview. Artificial examples and independent path-enumeration checks remain in `tests/test_markov.py`, which loads those same notebook definitions without running data-loading cells. Section 8 retains five-day event labels, keeps incomplete outcomes missing, and records the full maturity date. Historical labels can enter a forecast at t only when their outcome end date is at or before t. The next module completes the residence-time structural diagnostic. Then return to historical-frequency baselines and smoothed rolling predictions. Earlier development observations supply estimation history for later development forecasts; 2023 remains previously used validation. The descriptive matrix estimated from all of 2023 must not be used to claim forecasts issued earlier in that year.
+
+With the notebook dependencies installed, run from the project root:
+
+```sh
+python -m unittest discover -s tests -v
+python -m jupyter nbconvert --execute --to notebook --inplace notebooks/01_states_and_first_passage.ipynb
+python -m jupyter nbconvert --to html notebooks/01_states_and_first_passage.ipynb
+```
+
+## Reference work
+
+The data download and reconciliation CLIs require only the Python standard library. The optional notebook environment uses `requirements-notebook.txt`; after installation, run `python tools/build_data_audit_notebook.py` to rebuild the executed notebook and HTML. The data audit notebook rereads development-period CSVs and reads only safe date-summary JSON for the test period. Development CSV filenames include explicit date ranges, so a single-month download does not overwrite the complete development file.
+
+The previous implementation is available in the local [reference project](../../ChatGPT/bitcoin/btcdyn_research/README.md). Its 2023 BTC Markov Brier score was approximately 0.2495, versus approximately 0.2481 for historical frequency; these are previously used results, not results from the new test period. The old trading strategies, option signals, and Sharpe optimization are outside this project's main scope.
