@@ -14,11 +14,11 @@ Spectral features are appendix diagnostics only. Trading strategies, Sharpe opti
 |---|---|
 | October 1 | Define the scope; review download entry points; prepare isolated downloads and checksum verification; draft the protocol |
 | October 2 | Download development data; reconcile daily dates and prices for 2020–2023 against the advisor's CSV; only seal test data and check its calendar; initialize Git and make the first commit |
-| October 3 | Use simulated chains to validate first-passage probabilities, CK, and residence-run boundary handling; explain the three predictors; do not inspect new prices |
-| October 4 | Complete the protocol, scoring code, and key tests; freeze them in a commit and record the commit and file hashes; do not unseal the test set if any prerequisites remain incomplete |
-| October 5 | Add any September monthly archives whose release was delayed; complete the development-period run and figures |
+| October 3 | Split Parts A/B; implement three rolling predictors, scoring, paired bootstrap, and the gate; validate on synthetic and development data only |
+| October 4 | Freeze Part A as soon as code and tests pass (October 5 latest); record commit/hashes. Residence-time and Holm completion in development-only Part B is not a prerequisite |
+| October 5 | Latest Part A freeze target; continue learning and development-only Part B. Seal any newly available September archives without reading prices |
 | October 6 | Review development results and prepare a three-minute introduction; hold the first mock interview; record fixes to implementation errors before unsealing rather than silently replacing the protocol |
-| October 7 | Once all prerequisites are met, evaluate 2024–2026-09 once using the frozen workflow; save every prespecified comparison together, without selecting assets or months |
+| October 7 | Lock archive availability using timestamps/checksums only; use the frozen September/August fallback, then evaluate once through the Part A gate and save all comparisons |
 | October 8 | Check whether the evidence supports the conclusions; explain bias and uncertainty without tuning to test performance |
 | October 9 | Complete the README's one-page research report, reproduction commands, and necessary figures; organize and publish the code; hold the second mock interview |
 | October 10 | Describe the actual progress and results honestly on the resume and begin applications |
@@ -37,3 +37,11 @@ If time is short, reduce appendix work and secondary assets; do not bypass the p
 After each module, the user first explains in their own words what it computes, why it is computed that way, and when it can fail. If this cannot be explained clearly, pause to work through the explanation instead of adding more functionality. Mock interviews begin with an unscripted three-minute presentation, followed by questions from the interviewer; specific questions are not shown in advance. This project does not replace applications, probability practice, or graduation work.
 
 Immigration status, OPT, and employer requirements are not verified as part of this technical plan. Following the user's plan, confirm them separately with the school's DSO/OISS and individual employers.
+
+## October 3 ordering change
+
+Part A prediction is frozen independently of Part B structural diagnostics.
+Residence-time and Holm work may finish afterwards on development data only.
+The frozen fallback uses origins through August 26 and labels through August 31
+if September archives are unavailable at the scheduled October 7 check.
+No jobs or reminders are automatically scheduled by this plan.

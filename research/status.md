@@ -1,21 +1,64 @@
 # Current status
 
-Updated: 2026-10-03.
+Updated: 2026-10-03 (America/Chicago).
 
-Data preparation completed on October 2: All 137 monthly development archives have been downloaded and verified. Across the three assets, all 4,160 daily closing prices exactly match the advisor's data, and the dates match as well. Some base-asset and quote-asset volumes, along with six SOL opening prices, differ; the cause has not been confirmed. The original files are retained, and the main study continues to use only the closing prices specified in the design. See `data_audit_2026_10_02.md` for the full account.
+## Part A: implementation validated; freeze record follows
 
-Test period: 96 monthly archives have been sealed. Each asset has 974 days from 2024-01-01 through 2026-08-31, and the dates checked so far are consecutive. The three monthly archives for 2026-09 returned 404. The target end date remains 2026-09-30, so the test period is not yet complete. Only timestamps in the sealed archives have been parsed; prices have not been decoded, states have not been fitted, and scores have not been computed.
+The predictive protocol is separated from development-only structural diagnostics.
+Part A now contains two mature-label historical-frequency baselines, a smoothed
+365-day rolling Markov forecaster, shared eligibility, Brier/log-loss/calibration,
+paired stationary calendar-bootstrap intervals, the decision rule, and the
+single-run evaluation gate. Part B residence times and Holm are not freeze
+prerequisites. Core calculations remain inline in the main notebook.
 
-Verification: All 35 offline tests for downloading, reconciliation, and calendar auditing passed. Version history is maintained in the initialized local Git repository; see `git log` for the first commit. That commit is not the protocol freeze commit. Raw data and caches are excluded from Git.
+Validation: all **101 synthetic project tests passed** (35 data/audit checks,
+23 shared Part A feature/label/hitting checks, 14 prediction/scoring checks,
+17 gate checks, and 12 Part B raw-MLE/CK checks). The 35 original mathematical
+test bodies are unchanged and each retained once after splitting the test files.
+All 40 main-notebook code cells executed top-to-bottom on development data only;
+20 saved tables and two figures are present. The original 11 research functions
+and 13 result tables are unchanged. Figure labels, intervals, and zero reference
+were visually inspected; full HTML browser layout was not visually inspected.
 
-Still incomplete: The residence-time diagnostic specification and implementation, the joint Holm decision, predictive baselines and rolling scoring, protocol freezing, and the gate for the single evaluation run. The protocol remains DRAFT. The September archives will be added after their scheduled release; the missing month will not be used as a reason to unseal the test data early or shorten the test period.
+BTC development replay (origins January 1–December 26, 2023; outcomes through
+December 31): 360 calendar origins, 321 scored, 39 risk-origin exclusions.
+Brier losses: Markov 0.253410, pooled 0.255005, direct-state 0.255398.
+The primary baseline-minus-Markov difference is +0.001988; the paired 95%
+interval is [-0.003013, +0.007037]. The interval includes zero: the result is
+uncertain under the declared rule, not evidence of established improvement.
+These are previously used development data. No specification was changed in
+response to the replay. The CK diagnostic remains T=0.00082223, unadjusted
+approximate p=0.8090; residence times and joint Holm remain pending.
 
-Learning and implementation: The main notebook, `notebooks/01_states_and_first_passage.ipynb`, now includes the CK diagnostic before the separate prediction workflow. All 26 code cells executed. Sections 1–6 retain the descriptive 2023 matrix and model-implied probabilities. Section 7 estimates direct five-step endpoint transitions, compares them with the fifth power of the one-step estimate, and calibrates the declared weighted squared discrepancy using 1,999 homogeneous-chain simulations (seed 20261004), fixing the observed initial state and refitting on every path. The draft protocol records the scalar statistic, complete-path and sparse-row rules. Observed CK T = 0.00082223; 1,617 of 1,999 simulations had T at least as large, with zero invalid simulations. The approximate unadjusted p-value is 0.8090. This diagnostic did not identify an unusually large discrepancy under the fitted null, but it does not prove Markovity or predictive usefulness. The joint Holm conclusion is pending the residence-time diagnostic. Section 8 retains the event labels and maturity filter. All ten previous result tables are unchanged. All 35 research-math tests and all 70 project tests passed. HTML table contents were checked; the simulation-distribution figure was visually inspected for readable labels, units, and the observed-statistic marker. Full browser layout is not visually verified. The protocol remains DRAFT, and no holdout prices were read.
+The exact freeze commit and dry-check result will be recorded here immediately
+after committing the manifest and its protected inputs. The committed manifest
+protects the Part A function projection, protocol, config, gate, shared and
+predictive/gate tests, requirements, and development reconciliation record.
+Part B cells, tests, and prose may continue changing without altering that scope.
 
-Next: Read section 7 in order: direct five-step counts, the discrepancy T, then its fitted-null simulation. Complete the residence-time statistic, boundary rules, simulation checks, and joint Holm comparison next. After the structural module, return to section 8 and implement the two historical-frequency baselines, smoothed rolling forecasts, and scoring. At each forecast date t, fit from the preceding 365-day window including t and use only outcomes fully matured by t; score using the later five-day outcome. The full-year 2023 descriptive matrix is not used to claim earlier forecasts. Both 2020–2022 and 2023 remain development data.
+## Data boundary and scheduled evaluation
 
-Fixed deadline: Start submitting applications on October 10. Graduation research takes priority. Unfavorable or incomplete project results will not delay applications.
+No real holdout prices have been read or evaluated. Data preparation remains:
+137 verified development archives; all 4,160 matched closes agree with the
+advisor's CSV. Some volume fields and six SOL opens differ, with cause unconfirmed.
+96 holdout archives through August 31, 2026 remain sealed, with 974 consecutive
+dates per asset in timestamp-only audits. September archives were unavailable
+at the earlier download; their current availability has not been rechecked.
 
+The October 7 gate locks a shared endpoint from fresh archive-availability,
+checksum, and timestamp evidence only. If any September archive is unavailable,
+use labels through August 31 and origins through August 26 for all assets,
+and disclose the fallback. Otherwise use labels through September 30 and origins
+through September 25. Corruption, gaps, or network uncertainty block evaluation.
+The dated lock must be made on October 7 in America/Chicago; it cannot be
+retroactively inferred. No automation or unattended evaluation is scheduled.
+
+Next learning step: read notebook section 9, starting with the mature-label
+pooled and current-state frequency baselines, then the smoothed rolling Markov
+forecast; section 10 explains common scoring and uncertainty. Finish Part B
+later using development data only. Frozen Part A cannot be tuned from Part B
+findings or subsequent holdout outcomes. Start applications October 10 regardless
+of results or completion. Graduation research remains the priority.
 
 ## Follow-up ideas recorded on October 2, 2026
 

@@ -1,0 +1,17 @@
+{
+  "date_chicago": "2026-10-03",
+  "tests_passed": 101,
+  "test_command": "python -m unittest discover -s tests -v",
+  "test_seconds": 8.525,
+  "notebook_code_cells_executed": 40,
+  "saved_tables": 20,
+  "embedded_figures": 2,
+  "original_research_function_asts_unchanged": 11,
+  "original_saved_tables_unchanged": 13,
+  "figure_visual_review": "passed; fixed initial title/subtitle overlap",
+  "full_html_browser_layout": "not visually inspected",
+  "real_holdout_prices_read": false,
+  "holdout_evaluation_started": false,
+  "development_source": "data/development/BTCUSDT_1d_2020-01_2023-12.csv",
+  "development_sha256": "64ae4f3a75f61e216c36a7cb41eacaeb645ce3c27b6fd1e4ad3da9c87ef957f5"
+}

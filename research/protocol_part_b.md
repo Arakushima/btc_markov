@@ -1,0 +1,30 @@
+# Part B: development-only structural diagnostics
+
+Status: **IN DEVELOPMENT; independent of Part A freezing.** This part may be completed after the predictive specification is frozen. It is restricted to 2020–2023 and must never consume holdout states, prices, or scores. Later findings cannot change Part A or select a different primary analysis. CK is implemented on 2023; residence times and the joint Holm conclusion remain pending.
+
+The split was requested on October 3 to keep the October 5 prediction-freeze deadline achievable. Structural adequacy and predictive usefulness are distinct questions. No rejection proves neither Markovity nor useful prediction; rejection alone does not establish predictive failure. The same notebook may contain both parts, but only the Part A function projection and protected files are locked by its gate.
+
+## Current diagnostic specification
+
+
+Conduct the primary diagnostic first within the already-used fixed window from 2023-01-01 through 2023-12-31, assuming one fixed P within that window. Estimate the matrix using all valid adjacent pairs in the window. Do not conflate this diagnostic with the rolling P_t used for forecasting as if they formed one globally homogeneous chain. If auxiliary windows from 2020–2022 are needed, list them in the final protocol rather than selecting them after inspecting plots.
+
+- CK (specified on October 3 before running this implementation): Use the fixed 2023 window, requiring all daily states to be observed. Estimate raw P_hat_1 from all 364 adjacent pairs and raw P_hat_5 from all 360 overlapping five-day endpoint pairs, with both endpoints inside the window. Let n_i^(5) be the number of five-step pairs starting at i. Use the single scalar T = sum_i [n_i^(5) / sum_r n_r^(5)] * sum_j [P_hat_5(i,j) - (P_hat_1^5)(i,j)]^2. Larger T means greater discrepancy. This weights rows by observed source frequency, placing less weight on rare states; it does not use Pearson expected-cell denominators. No threshold or statistic is selected from the resulting p-value. Being in state 0 at step five and reaching it at any point within five days remain distinct events.
+- CK sparse-path rules: A missing date/state makes this complete-path diagnostic unavailable; do not bridge or interpolate it. Every one-step source row must have at least one pair so that raw P_hat_1 is defined. A five-step source row with zero pairs is displayed as undefined and contributes zero weight by explicit exclusion, not by multiplying NaN by zero. Apply exactly the same statistic and rules to each simulated path, including refitting both matrices and its own row weights. If any of the 1,999 simulations has an unobserved one-step source row, record the invalid count and withhold the p-value; do not discard, replace, or repeatedly simulate such paths. This conservative availability rule becomes more likely to withhold a result as the number of simulations increases. This is a development-stage specification on previously seen data, not independent preregistration.
+- Residence times: Define a complete run from entry into a state. The treatment of runs truncated at the beginning or end, the statistic, and the minimum number of runs must be identical for observed and simulated chains. A homogeneous chain implies Pr(L_i>=ell)=P_ii^(ell−1), but the empirical distribution after removing truncated runs cannot be claimed to be an unbiased estimate of the population residence-time distribution.
+- Null calibration: Simulate paths of the same length from the fitted homogeneous chain, fixing the observed initial state. For every simulation, refit the matrix, extract runs again, and recompute the same statistic. The proposal is to use 1,999 parametric bootstrap simulations with seed=20261004 and p=(1+number of simulated statistics at least as large as the observed statistic)/2000. Apply Holm correction to the two formal tests at significance level 0.05 once both p-values are available. Until the residence-time diagnostic is implemented, label the CK p-value unadjusted and do not issue the planned joint testing conclusion. This is an approximate composite-null test, not a finite-sample exact test.
+- Spectral features: At most, report the second-largest eigenvalue modulus in an appendix. Do not assume reversibility or directly equate 1−|lambda_2| with the finite-time mixing speed of a general nonreversible chain.
+
+**Still required to complete Part B (not a Part A freeze condition):** The residence-time statistic, ell range, treatment of the beginning and end, and sparse-run rule; implementation of the same residence-time rules in simulated resamples; and the joint Holm decision once both diagnostics are available. Do not describe Part B as complete until these details and their tests are complete. This does not delay or alter Part A.
+
+
+## Additional development years
+
+The initial 2023 calculation is a first complete example, not the whole project's structural evidence. Before executing additional diagnostics, record fixed annual development windows and any pooled 2020–2023 sensitivity check here, with their roles and multiplicity treatment. Longer pooled windows require a single homogeneous matrix over a longer interval; differences may reflect changing transition mechanisms rather than additional memory. These are development analyses, not new untouched tests. No selection among diagnostic results may change frozen Part A.
+
+## Methodological references
+
+
+- [Prinz et al. 2011, Markov models of molecular kinetics](https://www.bcp.fu-berlin.de/en/chemie/chemie/forschung/PhysTheoChem/agkeller/_Docs/Publications_pdf/Prinz2011.pdf): Model estimation and validation. The methods are borrowed here; their applicability to financial states still requires testing.
+- [Shalizi, Inference for Markov Chains](https://stat.cmu.edu/~cshalizi/dst/18/lectures/22/lecture-22.html): Markov inference and parametric bootstrap.
+- [Wolfer and Kontorovich 2019](https://arxiv.org/abs/1902.01224): Mixing-time estimation for general ergodic chains and issues of nonreversibility.

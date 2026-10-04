@@ -1,0 +1,45 @@
+{
+  "commit_instruction": "Commit this manifest and all protected inputs; use that commit with --frozen-commit.",
+  "created_chicago_date": "2026-10-03",
+  "created_utc": "2026-10-04T03:49:32.573770+00:00",
+  "earliest_evaluation_chicago_date": "2026-10-07",
+  "environment": {
+    "nbformat": "5.11.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.12.14",
+    "scipy": "1.18.1"
+  },
+  "notebook_projection": {
+    "function_names": [
+      "_validate_daily_index",
+      "classify_states",
+      "make_features",
+      "count_transitions",
+      "first_passage_probabilities",
+      "make_event_labels",
+      "_validate_prediction_config",
+      "smoothed_transition_matrix",
+      "historical_frequency_baselines",
+      "rolling_forecasts",
+      "stationary_bootstrap_indices",
+      "score_forecasts",
+      "evaluate_asset"
+    ],
+    "sha256": "292a648c704f7cc1674ecb3eecc05455cdc2db77f78c7c5304ae1a1473c35217",
+    "tagged_cells": 12
+  },
+  "part": "A_prediction_only",
+  "protected_sha256": {
+    "requirements-notebook.txt": "dbc9b2f0e37ec92d7b88bf54fcaf9118b3970e8d45d26336a907c2ebb42f1192",
+    "research/part_a_config.json": "a616566655081537538f7e89e5a5a7d4bf357bc06f5a0b2d92e0d8776d1f3a91",
+    "research/protocol_part_a.md": "639d13ce892a15e18fecd95612da167df4f340640f883a1070804a1f6c6b6043",
+    "results/data_audit/development_reconciliation.json": "2f469f0d0d2720c992b323a6147e8938163e5c5c27a5482eaf2c91cb324e914f",
+    "tests/test_part_a_gate.py": "680966f8c1da7dd6eb53c633c2f38862bd25d9a1e8c1821a0b881763ba32a35b",
+    "tests/test_part_a_shared.py": "003653cd1ec6e7b0660d481b13f19b4eb9e82a00a68362f3ee7b42d592815c5d",
+    "tests/test_prediction.py": "5ed9e458a8cced21c73d62ffcdb2786b13f06eb9f8294dd617dde1b2645145b9",
+    "tools/part_a_gate.py": "a00272ea9295098685f292eb15e1ac80c495f042a70c5c4df4aec41b49564bbd"
+  },
+  "schema_version": 1
+}

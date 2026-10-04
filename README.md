@@ -1,47 +1,61 @@
-# Tests of Markovity in BTC Market States and Short-Term Risk Forecasting
+# BTC Markov states and five-day risk forecasts
 
-Work in progress. The aim is to test a Markov approximation under a fixed three-state representation and evaluate five-day risk probability forecasts. Job applications begin on October 10, regardless of whether the project produces positive results.
+Can a rolling three-state Markov approximation improve the probability forecast
+of a negative standardized daily shock within five days? BTC is primary;
+ETH/SOL are identical-specification descriptive transfer checks. No trading or
+Sharpe optimization is performed.
 
-- [Sprint schedule and scope](research/sprint_plan_2026_10.md)
-- [Draft research protocol, not yet frozen](research/protocol_2026_holdout_draft.md)
-- [Current status and next steps](research/status.md)
-- [October 2 data reconciliation findings](research/data_audit_2026_10_02.md)
-- [Rerunnable data audit notebook](notebooks/00_data_audit.ipynb)
-- [Main research notebook: BTC states and first passage](notebooks/01_states_and_first_passage.ipynb) (real development data; 2023 matrices, first-passage probabilities, a CK diagnostic, and outcome labels; predictive evaluation pending)
+[Part A](research/protocol_part_a.md) fixes prediction and the single holdout
+evaluation. [Part B](research/protocol_part_b.md) contains development-only CK,
+residence-time, and joint Holm diagnostics. Part B may finish after Part A freezes
+and cannot change its methods. See [current status](research/status.md) for the
+actual freeze commit, validation, and next teaching step. Applications start
+October 10 regardless of completion or outcome.
 
-Research questions: Are BTC's fixed discrete states compatible with selected testable implications of a homogeneous first-order Markov model? Under prespecified local estimation rules, can the Markov model's probability of first reaching the risk state within five days outperform direct historical frequency? Failure to reject does not prove Markovity; structural departures and predictive value are evaluated separately.
+## Methods and current evidence
 
-## Data separation
+Define daily return divided by the strictly preceding 20-return sample standard
+deviation, with states separated by fixed thresholds -1 and +1. For each
+non-risk origin, use a 365-day rolling window and compare:
 
-The original source is Binance's official spot `1d` files on `data.binance.vision`. The 2020–2023 period is development data that has already been used. The planned reserved test period is 2024-01-01 through 2026-09-30. Until the protocol and code are committed and frozen, only sealed downloads, file verification, row counts, and date-gap checks are permitted; prices must not be read, returns computed, or charts drawn.
+- Dirichlet-smoothed transition estimates and the killed-kernel probability
+  `1 - Q^5 @ 1`.
+- Beta-smoothed pooled historical event frequency.
+- Beta-smoothed event frequency conditional on the current state.
 
-The downloader processes only the development period by default. When the test period is explicitly selected, it saves only ZIP files that pass SHA-256 verification and reads each row's timestamp field to produce calendar-coverage records; it does not export a test-period price CSV. Sealing here is separation through the workflow, not access control that cannot be bypassed.
+Historical labels require all five days to mature. All models share the same
+eligible origins. Brier loss is primary; log loss and calibration are secondary.
+The primary comparison is BTC Markov versus direct-state frequency, with a
+paired stationary calendar bootstrap (2,000 draws; mean block length 10 days).
+Improvement requires a primary 95% interval wholly above zero for baseline loss
+minus Markov loss.
 
-```sh
-# List the plan only: no network access or file writes
-python3 tools/download_binance.py --dry-run
+**Development replay only — not untouched testing:** BTC origins January 1 to
+December 26, 2023, with outcomes through December 31. There are 360 calendar
+origins, 321 scored non-risk origins, and 39 risk-origin exclusions.
 
-# Download development-period data
-python3 tools/download_binance.py --partition development
+| Forecaster | Brier loss | Log loss |
+|---|---:|---:|
+| Markov | 0.253410 | 0.700223 |
+| Pooled frequency | 0.255005 | 0.703592 |
+| Direct-state frequency | 0.255398 | 0.704392 |
 
-# Explicitly download and seal test-period data; check timestamp coverage only
-python3 tools/download_binance.py --partition holdout
+The primary Brier difference is +0.001988, with a 95% interval
+[-0.003013, +0.007037]. This is uncertain under the declared rule; it does not
+establish improvement. No parameters were changed in response to this replay.
+The 2023 CK discrepancy is 0.00082223 with an approximate unadjusted p=0.8090;
+residence times and the joint Holm conclusion remain pending. These checks do
+not prove Markovity or determine predictive success.
 
-# Unit tests with synthetic data; no real market data accessed
-python3 -m unittest discover -s tests -p 'test_download_binance.py' -v
-```
+## Reproduce and inspect
 
-New data are stored in `data/development/` and `data/holdout_sealed/`, with calendar records in `data/metadata/`; the entire `data/` directory is excluded from Git. Missing months, missing days, or verification failures are reported as incomplete. SOL's pre-listing absence must be distinguished from gaps after listing. Missing records before the first observed data are marked as requiring confirmation; the downloader does not infer a listing date on its own.
+The [main notebook](notebooks/01_states_and_first_passage.ipynb) keeps all core
+math inline. Section 9 implements rolling forecasts; section 10 scores them.
+The [HTML reading copy](notebooks/01_states_and_first_passage.html) contains saved
+development outputs. All 40 code cells executed; numerical tables and embedded
+figures were checked. Full HTML browser layout was not visually inspected.
 
-Binance documentation states that monthly archives are generally published on the first Monday of each month, so the September 2026 archives may not all be available until October 5. If they have not been published, complete the development-period work first and later obtain the missing monthly archives from the same source; do not silently shorten the test period. Spot timestamps changed to microseconds starting on 2025-01-01, so the downloader must verify the magnitude, the date boundary between units, and UTC day boundaries. [Official data documentation](https://github.com/binance/binance-public-data)
-
-## Research workflow
-
-Continue extending the existing main notebook: development closing prices → causal states → the fixed 2023 transition matrix → implied five-day first-passage probabilities → a five-step CK structural diagnostic → outcome-label preparation for later rolling forecasts. The current 2023 calculation is in-sample and uses raw transition frequencies. It is not a rolling forecast or evidence of predictive improvement. Section 7 separately compares direct five-day endpoint transitions with the fifth power of the one-day matrix. Its weighted discrepancy is calibrated using 1,999 fitted-chain simulations with full refitting. The development CK result is T = 0.00082223, with an approximate unadjusted p-value of 0.8090 (1,617 of 1,999 simulated discrepancies at least as large; zero invalid simulations). This check did not identify an unusually large discrepancy under the fitted null. The planned joint Holm conclusion awaits the residence-time diagnostic. Neither nonrejection nor rejection establishes predictive value.
-
-Core functions are defined directly in the main notebook, beside the relevant equations and before their use on real data. This keeps the complete research explanation in one file for an interview. Artificial examples and independent path-enumeration checks remain in `tests/test_markov.py`, which loads those same notebook definitions without running data-loading cells. Section 8 retains five-day event labels, keeps incomplete outcomes missing, and records the full maturity date. Historical labels can enter a forecast at t only when their outcome end date is at or before t. The next module completes the residence-time structural diagnostic. Then return to historical-frequency baselines and smoothed rolling predictions. Earlier development observations supply estimation history for later development forecasts; 2023 remains previously used validation. The descriptive matrix estimated from all of 2023 must not be used to claim forecasts issued earlier in that year.
-
-With the notebook dependencies installed, run from the project root:
+With `requirements-notebook.txt` installed, run from the repository root:
 
 ```sh
 python -m unittest discover -s tests -v
@@ -49,8 +63,53 @@ python -m jupyter nbconvert --execute --to notebook --inplace notebooks/01_state
 python -m jupyter nbconvert --to html notebooks/01_states_and_first_passage.ipynb
 ```
 
-## Reference work
+The notebook reads only the explicit 2020–2023 development CSV. Tests use
+synthetic inputs and load tagged function definitions without executing data
+loading or analysis cells. The gate similarly loads the frozen Part A functions;
+its separate Python file handles hashes, dates, input ingestion, and audit records,
+not forecasting mathematics.
 
-The data download and reconciliation CLIs require only the Python standard library. The optional notebook environment uses `requirements-notebook.txt`; after installation, run `python tools/build_data_audit_notebook.py` to rebuild the executed notebook and HTML. The data audit notebook rereads development-period CSVs and reads only safe date-summary JSON for the test period. Development CSV filenames include explicit date ranges, so a single-month download does not overwrite the complete development file.
+## Data separation and the single evaluation
 
-The previous implementation is available in the local [reference project](../../ChatGPT/bitcoin/btcdyn_research/README.md). Its 2023 BTC Markov Brier score was approximately 0.2495, versus approximately 0.2481 for historical frequency; these are previously used results, not results from the new test period. The old trading strategies, option signals, and Sharpe optimization are outside this project's main scope.
+Source: Binance public spot monthly daily-bar archives on `data.binance.vision`.
+2020–2023 has already been used for development. Across BTC/ETH/SOL, all 4,160
+matched development closes agree with the advisor's CSV; some volume fields
+and six SOL opens differ. See the [data audit](research/data_audit_2026_10_02.md).
+
+The planned holdout ends September 30, 2026 (origins through September 25).
+**Predeclared fallback:** if any September monthly archive is unavailable at the
+October 7 check, all three assets end August 31 (origins through August 26), and
+the report states this. Checksum errors and calendar gaps block the run; they do
+not select a shorter period. Until the dated gate, only sealed downloads,
+checksums, and timestamp-only checks are allowed. Git and the gate are an audit
+trail, not independent proof that nobody inspected the data.
+
+Development data live in `data/development/`; holdout ZIPs remain in
+`data/holdout_sealed/`; all raw data are ignored by Git. Spot timestamps change
+from milliseconds to microseconds at January 1, 2025. The downloader validates
+units and dates. [Official archive documentation](https://github.com/binance/binance-public-data).
+
+```sh
+python tools/download_binance.py --dry-run
+python tools/download_binance.py --partition development
+python tools/download_binance.py --partition holdout
+```
+
+The committed freeze's exact hash is recorded in `research/status.md`. Replace
+`FROZEN_COMMIT` below with that hash. Dry-check reads no market archives. The
+calendar lock is allowed only on October 7, 2026 in America/Chicago; evaluation
+may then run once. A missed lock must be documented as a deviation rather than
+backdated. No unattended run is scheduled.
+
+```sh
+python tools/part_a_gate.py dry-check --frozen-commit FROZEN_COMMIT
+# Only on the scheduled date; timestamp/checksum checks and September availability.
+python tools/part_a_gate.py lock-calendar --frozen-commit FROZEN_COMMIT
+# Single evaluation; retained failures and existing records forbid silent retries.
+python tools/part_a_gate.py evaluate --frozen-commit FROZEN_COMMIT
+```
+
+The previous [reference project](../../ChatGPT/bitcoin/btcdyn_research/README.md)
+used a different, frozen-at-2022 fitting rule and lacks this direct-state primary
+baseline. Its already-viewed 2023 scores are not comparable holdout evidence for
+this specification. Current design provenance is recorded in Part A.
