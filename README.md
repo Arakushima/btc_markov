@@ -95,18 +95,18 @@ python tools/download_binance.py --partition development
 python tools/download_binance.py --partition holdout
 ```
 
-The committed freeze's exact hash is recorded in `research/status.md`. Replace
-`FROZEN_COMMIT` below with that hash. Dry-check reads no market archives. The
+Part A is frozen at `af49df367c9792054b7a9cd8a90951dd1719d22c`;
+see `research/status.md` for the validation record. Dry-check reads no market archives. The
 calendar lock is allowed only on October 7, 2026 in America/Chicago; evaluation
 may then run once. A missed lock must be documented as a deviation rather than
 backdated. No unattended run is scheduled.
 
 ```sh
-python tools/part_a_gate.py dry-check --frozen-commit FROZEN_COMMIT
+python tools/part_a_gate.py dry-check --frozen-commit af49df367c9792054b7a9cd8a90951dd1719d22c
 # Only on the scheduled date; timestamp/checksum checks and September availability.
-python tools/part_a_gate.py lock-calendar --frozen-commit FROZEN_COMMIT
+python tools/part_a_gate.py lock-calendar --frozen-commit af49df367c9792054b7a9cd8a90951dd1719d22c
 # Single evaluation; retained failures and existing records forbid silent retries.
-python tools/part_a_gate.py evaluate --frozen-commit FROZEN_COMMIT
+python tools/part_a_gate.py evaluate --frozen-commit af49df367c9792054b7a9cd8a90951dd1719d22c
 ```
 
 The previous [reference project](../../ChatGPT/bitcoin/btcdyn_research/README.md)

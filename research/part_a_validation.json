@@ -13,5 +13,7 @@
   "real_holdout_prices_read": false,
   "holdout_evaluation_started": false,
   "development_source": "data/development/BTCUSDT_1d_2020-01_2023-12.csv",
-  "development_sha256": "64ae4f3a75f61e216c36a7cb41eacaeb645ce3c27b6fd1e4ad3da9c87ef957f5"
+  "development_sha256": "64ae4f3a75f61e216c36a7cb41eacaeb645ce3c27b6fd1e4ad3da9c87ef957f5",
+  "frozen_commit": "af49df367c9792054b7a9cd8a90951dd1719d22c",
+  "freeze_dry_check": "passed; no archives or prices read"
 }

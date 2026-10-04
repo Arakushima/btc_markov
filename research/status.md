@@ -2,7 +2,7 @@
 
 Updated: 2026-10-03 (America/Chicago).
 
-## Part A: implementation validated; freeze record follows
+## Part A: FROZEN
 
 The predictive protocol is separated from development-only structural diagnostics.
 Part A now contains two mature-label historical-frequency baselines, a smoothed
@@ -30,8 +30,10 @@ These are previously used development data. No specification was changed in
 response to the replay. The CK diagnostic remains T=0.00082223, unadjusted
 approximate p=0.8090; residence times and joint Holm remain pending.
 
-The exact freeze commit and dry-check result will be recorded here immediately
-after committing the manifest and its protected inputs. The committed manifest
+Frozen commit: **`af49df367c9792054b7a9cd8a90951dd1719d22c`** (October 3, America/Chicago).
+The frozen gate dry-check passed without opening market archives or prices.
+This is the Part A freeze; Part B remains in development and no holdout
+evaluation has occurred. The committed manifest
 protects the Part A function projection, protocol, config, gate, shared and
 predictive/gate tests, requirements, and development reconciliation record.
 Part B cells, tests, and prose may continue changing without altering that scope.
