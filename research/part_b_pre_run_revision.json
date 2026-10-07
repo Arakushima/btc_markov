@@ -1,0 +1,13 @@
+{
+  "recorded_at_utc": "2026-10-05T02:58:34.336167+00:00",
+  "stage": "Pre-execution implementation correction; still before all new residence/auxiliary real-data results",
+  "reason": "Independent review identified missing orchestration for expected observed-unavailable diagnostics. Record them as missing, retain zero simulation count, and withhold the entire fixed Holm family rather than aborting or shrinking it. No statistic or specification changed.",
+  "previous_record": "research/part_b_pre_run.json",
+  "files_sha256": {
+    "research/protocol_part_b.md": "7300f41759ed4aa9548e1b12a583d252a5bb548d42eab8c122ffac602d6a4db3",
+    "research/part_b_config.json": "408f008c84441f9c8578f2177e7f9c04a9fde8a079e5da8d87016a9b0ecf13df",
+    "notebooks/01_states_and_first_passage.ipynb": "53ffd60f175795e097c69bd5033c6fd0de111febf1e8b112547a18195f830e98",
+    "tests/test_residence.py": "8e5399e186efb07cbf2a416324b4e27eb84693178354f65651b9faf3df54186d",
+    "tests/test_part_b_availability.py": "5ad9c340b263d1a8048884959976865b5291b21ccbf90ad694507d879e0aad52"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "synthetic_tests_passed": 125,
+  "executed_code_cells": 52,
+  "embedded_figures": 4,
+  "part_a_saved_tables_unchanged": [
+    48,
+    54,
+    55,
+    56
+  ],
+  "table_comparison_note": "Numerical/display contents match after ignoring newly generated Styler HTML IDs and Python object addresses; raw-byte output comparison initially flagged these rendering-only differences.",
+  "figures_visually_inspected": true,
+  "full_html_layout_visually_inspected": false,
+  "holdout_prices_read": false,
+  "part_a_frozen_commit": "af49df367c9792054b7a9cd8a90951dd1719d22c",
+  "results_manifest_sha256": "8d56da18a367ad679c245e61c3ed96d1899d96ec78d4bfef85fe36bb38eb22d2",
+  "notebook_sha256": "89525662f9c09b533cbc0514c48dbd1793839ac786a353dd9e1b362fab4b6b2f"
+}

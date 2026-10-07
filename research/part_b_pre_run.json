@@ -1,0 +1,13 @@
+{
+  "recorded_at_utc": "2026-10-05T02:49:47.563210+00:00",
+  "stage": "Specification and code installed before first new residence/auxiliary real-data calculation",
+  "scope": "Previously used BTC development data only, 2020-2023. CK 2023 already known.",
+  "part_a_frozen_commit": "af49df367c9792054b7a9cd8a90951dd1719d22c",
+  "files_sha256": {
+    "research/protocol_part_b.md": "7300f41759ed4aa9548e1b12a583d252a5bb548d42eab8c122ffac602d6a4db3",
+    "research/part_b_config.json": "408f008c84441f9c8578f2177e7f9c04a9fde8a079e5da8d87016a9b0ecf13df",
+    "notebooks/01_states_and_first_passage.ipynb": "a8d5c7882571c674f944f223df7e153d77f3d532c3b42f4703083d0264b23c97",
+    "tests/test_residence.py": "8e5399e186efb07cbf2a416324b4e27eb84693178354f65651b9faf3df54186d"
+  },
+  "caveat": "Local timestamp/hash is an audit record, not independent registration. Notebook outputs and metadata change on execution."
+}

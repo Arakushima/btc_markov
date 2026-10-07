@@ -43,16 +43,20 @@ origins, 321 scored non-risk origins, and 39 risk-origin exclusions.
 The primary Brier difference is +0.001988, with a 95% interval
 [-0.003013, +0.007037]. This is uncertain under the declared rule; it does not
 establish improvement. No parameters were changed in response to this replay.
-The 2023 CK discrepancy is 0.00082223 with an approximate unadjusted p=0.8090;
-residence times and the joint Holm conclusion remain pending. These checks do
-not prove Markovity or determine predictive success.
+Part B is complete on development data: 2023 CK raw p=0.8090
+and residence raw p=0.3280; their Holm-adjusted p-values
+are 0.8090 and 0.6560. Neither primary implication is rejected at the declared 0.05 level. This is non-rejection, not evidence that the process is proven Markov.
+None of the eight auxiliary diagnostics rejects after their separate Holm adjustment. The [full structural results](results/part_b_development/diagnostics.csv)
+include every annual and pooled window. These checks do not determine forecast
+performance or permit changes to frozen Part A.
 
 ## Reproduce and inspect
 
 The [main notebook](notebooks/01_states_and_first_passage.ipynb) keeps all core
 math inline. Section 9 implements rolling forecasts; section 10 scores them.
+Sections 11–12 complete residence times, Holm, and auxiliary development windows.
 The [HTML reading copy](notebooks/01_states_and_first_passage.html) contains saved
-development outputs. All 40 code cells executed; numerical tables and embedded
+development outputs. All 52 code cells executed; numerical tables and embedded
 figures were checked. Full HTML browser layout was not visually inspected.
 
 With `requirements-notebook.txt` installed, run from the repository root:

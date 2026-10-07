@@ -1,0 +1,70 @@
+{
+  "executed_at_utc": "2026-10-05T02:59:42.612346+00:00",
+  "scope": "BTC development only; 2020-2023",
+  "source": "data/development/BTCUSDT_1d_2020-01_2023-12.csv",
+  "source_sha256": "64ae4f3a75f61e216c36a7cb41eacaeb645ce3c27b6fd1e4ad3da9c87ef957f5",
+  "config": {
+    "asset": "BTCUSDT",
+    "development_end": "2023-12-31",
+    "ck_lag": 5,
+    "max_duration": 20,
+    "min_runs": 5,
+    "n_simulations": 1999,
+    "seed": 20261004,
+    "alpha": 0.05,
+    "windows": [
+      {
+        "name": "2023",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "family": "primary"
+      },
+      {
+        "name": "2020",
+        "start": "2020-01-22",
+        "end": "2020-12-31",
+        "family": "exploratory"
+      },
+      {
+        "name": "2021",
+        "start": "2021-01-01",
+        "end": "2021-12-31",
+        "family": "exploratory"
+      },
+      {
+        "name": "2022",
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "family": "exploratory"
+      },
+      {
+        "name": "pooled_2020_2023",
+        "start": "2020-01-22",
+        "end": "2023-12-31",
+        "family": "exploratory"
+      }
+    ]
+  },
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "protocol_sha256": "7300f41759ed4aa9548e1b12a583d252a5bb548d42eab8c122ffac602d6a4db3",
+  "config_sha256": "408f008c84441f9c8578f2177e7f9c04a9fde8a079e5da8d87016a9b0ecf13df",
+  "research_function_sources_sha256": "02b0113dc5919bbf6baf39a5d924ce12b1394130877fccb849e4ffa9de10eb38",
+  "part_a_frozen_commit": "af49df367c9792054b7a9cd8a90951dd1719d22c",
+  "invalid_reasons": {
+    "2023": {},
+    "2020": {},
+    "2021": {},
+    "2022": {},
+    "pooled_2020_2023": {}
+  },
+  "caveat": "Approximate fitted-null calibration on previously used development data; no proof of Markovity.",
+  "output_sha256": {
+    "diagnostics.csv": "6e387190d4896b9623c8839b0c8b30e12f894f9a3545ef9b4a26392c3c65c7b0",
+    "residence_runs_2023.csv": "c24e8bc93e01756410ab84b922ed531ba74fb97a66b520670a472c1707e8d79c",
+    "run_counts.csv": "e2a530ef79718c1913feb047d88b27e787cd29df43ef4b943ee40a99975fbe78",
+    "simulated_statistics.csv": "e820e06e17cfaadf30327b69aee86a9d80bd149edad87808cafc7e2209f00636",
+    "survival_2023.csv": "ff3dbac5a7f3e5e35aab38371b9d649c1236b677eb98d156e63a56561d019493"
+  }
+}

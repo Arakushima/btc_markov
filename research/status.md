@@ -1,6 +1,6 @@
 # Current status
 
-Updated: 2026-10-03 (America/Chicago).
+Updated: 2026-10-04 (America/Chicago).
 
 ## Part A: FROZEN
 
@@ -11,14 +11,13 @@ paired stationary calendar-bootstrap intervals, the decision rule, and the
 single-run evaluation gate. Part B residence times and Holm are not freeze
 prerequisites. Core calculations remain inline in the main notebook.
 
-Validation: all **101 synthetic project tests passed** (35 data/audit checks,
-23 shared Part A feature/label/hitting checks, 14 prediction/scoring checks,
-17 gate checks, and 12 Part B raw-MLE/CK checks). The 35 original mathematical
-test bodies are unchanged and each retained once after splitting the test files.
-All 40 main-notebook code cells executed top-to-bottom on development data only;
-20 saved tables and two figures are present. The original 11 research functions
-and 13 result tables are unchanged. Figure labels, intervals, and zero reference
-were visually inspected; full HTML browser layout was not visually inspected.
+Validation: all **125 synthetic project tests passed** after Part B completion.
+The Part A gate dry-check remains valid. All 52 main-notebook code cells
+executed top-to-bottom on development data only, with 4 embedded figures.
+The frozen Part A function projection and protected files are unchanged; its
+saved forecast, scoring, comparison, and calibration tables match the prior run.
+Part B figures were visually inspected. Full HTML browser layout was not
+visually inspected; the HTML reading copy was regenerated from saved outputs.
 
 BTC development replay (origins January 1–December 26, 2023; outcomes through
 December 31): 360 calendar origins, 321 scored, 39 risk-origin exclusions.
@@ -27,12 +26,11 @@ The primary baseline-minus-Markov difference is +0.001988; the paired 95%
 interval is [-0.003013, +0.007037]. The interval includes zero: the result is
 uncertain under the declared rule, not evidence of established improvement.
 These are previously used development data. No specification was changed in
-response to the replay. The CK diagnostic remains T=0.00082223, unadjusted
-approximate p=0.8090; residence times and joint Holm remain pending.
+response to the replay. Part B now adds residence times and joint Holm decisions; see its completed record below.
 
 Frozen commit: **`af49df367c9792054b7a9cd8a90951dd1719d22c`** (October 3, America/Chicago).
 The frozen gate dry-check passed without opening market archives or prices.
-This is the Part A freeze; Part B remains in development and no holdout
+This is the Part A freeze; Part B has now been completed on development data only. No holdout
 evaluation has occurred. The committed manifest
 protects the Part A function projection, protocol, config, gate, shared and
 predictive/gate tests, requirements, and development reconciliation record.
@@ -55,12 +53,34 @@ through September 25. Corruption, gaps, or network uncertainty block evaluation.
 The dated lock must be made on October 7 in America/Chicago; it cannot be
 retroactively inferred. No automation or unattended evaluation is scheduled.
 
-Next learning step: read notebook section 9, starting with the mature-label
-pooled and current-state frequency baselines, then the smoothed rolling Markov
-forecast; section 10 explains common scoring and uncertainty. Finish Part B
-later using development data only. Frozen Part A cannot be tuned from Part B
-findings or subsequent holdout outcomes. Start applications October 10 regardless
-of results or completion. Graduation research remains the priority.
+## Part B: completed development diagnostics (October 4)
+
+The October 4 user requested running Part B first, then resuming step-by-step
+learning. All core mathematics remains inline; new sections 11–12 preserve the
+existing section order. Fixed the residence statistic, boundary rules, minimum
+counts, simulation rules, annual/pooled windows, and separate Holm families
+before the new real-data calculations. Local pre-run records document this
+order and implementation corrections; these are not independent preregistration.
+
+| 2023 diagnostic | Discrepancy | Raw approximate p | Holm-adjusted p |
+|---|---:|---:|---:|
+| CK | 0.00082223 | 0.8090 | 0.8090 |
+| Residence | 0.00056047 | 0.3280 | 0.6560 |
+
+Neither primary implication is rejected at the declared 0.05 level. This is non-rejection, not evidence that the process is proven Markov. None of the eight auxiliary diagnostics rejects after their separate Holm adjustment.
+
+Saved all ten diagnostic rows and the simulated statistics, run counts, boundary
+audit, survival curves, and manifest in `results/part_b_development/`. See
+`research/protocol_part_b.md` for exact methods and limitations. The geometric
+curve is a model reference: excluding boundary runs favors short runs, an effect
+repeated in every simulation. The exploratory family covers 2020, 2021, 2022,
+and the pooled 2020–2023 window; it is separate from the primary two-test family.
+No result changes Part A or substitutes for predictive evaluation.
+
+Next learning step: notebook section 11.1 (complete and truncated runs), then
+the statistic, simulation calibration, and section 12 Holm/window results.
+Start applications October 10 regardless of results or completion. Graduation
+research remains the priority. No holdout evaluation or unattended run occurred.
 
 ## Follow-up ideas recorded on October 2, 2026
 

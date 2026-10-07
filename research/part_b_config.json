@@ -1,0 +1,42 @@
+{
+  "asset": "BTCUSDT",
+  "development_end": "2023-12-31",
+  "ck_lag": 5,
+  "max_duration": 20,
+  "min_runs": 5,
+  "n_simulations": 1999,
+  "seed": 20261004,
+  "alpha": 0.05,
+  "windows": [
+    {
+      "name": "2023",
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "family": "primary"
+    },
+    {
+      "name": "2020",
+      "start": "2020-01-22",
+      "end": "2020-12-31",
+      "family": "exploratory"
+    },
+    {
+      "name": "2021",
+      "start": "2021-01-01",
+      "end": "2021-12-31",
+      "family": "exploratory"
+    },
+    {
+      "name": "2022",
+      "start": "2022-01-01",
+      "end": "2022-12-31",
+      "family": "exploratory"
+    },
+    {
+      "name": "pooled_2020_2023",
+      "start": "2020-01-22",
+      "end": "2023-12-31",
+      "family": "exploratory"
+    }
+  ]
+}
