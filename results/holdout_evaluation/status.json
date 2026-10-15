@@ -1,0 +1,36 @@
+{
+  "assets": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT"
+  ],
+  "calendar_decision_sha256": "46297506ea62496980f8a8e12d6b1435968a74b9a7bf195527923424a239cd07",
+  "claim_policy": "Exclusive directory before first price read; failed records are retained.",
+  "completed_utc": "2026-10-14T21:39:23.851555+00:00",
+  "environment": {
+    "nbformat": "5.11.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "python": "3.12.14",
+    "scipy": "1.18.1"
+  },
+  "freeze_manifest_sha256": "517d647a5c5dbc45331616d2127939b130fc6ab679777fc05594bfbf717e9988",
+  "frozen_commit": "af49df367c9792054b7a9cd8a90951dd1719d22c",
+  "head_commit": "66df3bfb891ba3c76ab6d69905a291e0b5be5b16",
+  "label_end": "2026-09-30",
+  "origin_end": "2026-09-25",
+  "origin_start": "2024-01-01",
+  "outputs": [
+    "forecasts",
+    "labels",
+    "daily_losses",
+    "summary",
+    "calibration",
+    "comparisons",
+    "coverage",
+    "bootstrap"
+  ],
+  "started_utc": "2026-10-14T21:39:11.759339+00:00",
+  "status": "completed"
+}

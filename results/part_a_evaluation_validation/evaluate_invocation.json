@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/zhangzhenyi/Documents/ChatGPT/bitcoin/btcdyn_research/.venv/bin/python",
+    "tools/part_a_gate.py",
+    "evaluate",
+    "--frozen-commit",
+    "af49df367c9792054b7a9cd8a90951dd1719d22c"
+  ],
+  "cwd": "/Users/zhangzhenyi/Documents/Quant/btc_markov",
+  "started_utc": "2026-10-14T21:39:11.682324+00:00",
+  "guide_sha256_before_evaluation": "5f39d21cc687bf899b182db4032c81ff2c41a8ac08dc802a2abd42e1626e00a2",
+  "manual_precedes_evaluation": true,
+  "returncode": 0,
+  "completed_utc": "2026-10-14T21:39:23.911518+00:00"
+}

@@ -1,0 +1,3 @@
+stage,reason_combination,count
+forecasts,risk_origin,136
+daily_losses,forecast:risk_origin,136
